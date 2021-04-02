@@ -1,5 +1,5 @@
 # Elfos-utils
-Simple utitlity commands for the ElfOs
+Simple utility commands for the Elf/OS.  These commands were all assembled using RC/ASM.
 
 Repository Contents
 -------------------
