@@ -1,5 +1,75 @@
 # Elfos-utils
-Simple utility commands for the Elf/OS.  These commands were all assembled using RC/ASM.
+Simple utility commands for the Elf/OS.  These commands were all assembled using the 
+RcAsm 1802 Assembler by Mike Riley, and run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html)
+with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html)
+and the [STG Pico/Elf EPROM v1.07.](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v107.zip) written by Bob Kay. 
+A lot of information and software for the Pico/Elf can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+
+Miscellaneous Elf/OS Utility Commands
+-------------------------------------
+## clear
+**Usage:** clear  
+Clear the output.
+
+## input
+**Usage:** input  
+Input and display data read from Port 4
+
+## output
+**Usage:** output *hh*  
+Send the hex value *hh* out to Port 4
+
+## nop
+**Usage:** nop    
+No Operation, a simple program that does nothing.
+
+## pwd
+**Usage:** pwd    
+Print Working Directory, write the current directory to the output.
+
+
+## say
+**Usage:** say *text*      
+Print the string *text* to the output
+
+## stack
+**Usage:** stack    
+Print the value of the Elf/OS stack pointer
+
+STG NVR/RTC/UART and STG ROM Utility Commands  
+---------------------------------------------
+
+## stg
+**Usage:** stg    
+Jump to the STG Pico/Elf Rom v1.07 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the ROM menu.
+
+## visualstg
+**Usage:** visualstg  
+Run Visual02 from the STG Pico/Elf ROM v1.07 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf ROM.  (You can rename it to visual02.)
+
+## xsb
+**Usage:** xsb *filename*    
+XModem Send command that uses the UART from the STG NVR/RTC/UART card instead of the bit banged serial routines to send the file named *filename*.  This command is the compliment to the xrb XModem receive command, and can be used to send binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expnsion card's UART serial interface.
+
+1861 Pixie Video Demo and Utility Commands
+------------------------------------------
+## spaceship
+**Usage:** spaceship *(Press Input /EF4 to exit program.)*    
+Joseph A Weisbecker's Pixie Graphic Demo program modified to 
+run under Elf/OS. 
+
+## dma_test
+**Usage:** dma_test *(Press Input /EF4 to exit program.)*    
+Tom Pittman's Video DMA program modified to run under Elf/OS.
+
+## tvclock
+**Usage:** tvclock *(Press Input /EF4 to exit program.)*    
+Tom Pittman's TV Clock program modified to run under Elf/OS.
+
+## voff
+**Usage:** voff  
+Video Off. Output Port 1 and Disable interrupts. This command 
+is useful when debugging or writing pixie video programs to turn off a 1861 video display.
 
 Repository Contents
 -------------------
@@ -36,3 +106,57 @@ Repository Contents
   * misc_utils.lbr - Library file for miscellaneous Elf/OS utilities.
   * misc_utils.lbr - Library file  for STG NVR/RTC/UART and STG ROM utilities.
   * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities.
+  
+  License Information
+  -------------------
+  
+  This code is public domain under the MIT License, but please buy me a beer
+  if you use this and we meet someday (Beerware).
+  
+  References to any products, programs or services do not imply
+  that they will be available in all countries in which their respective owner operates.
+  
+  Any company, product, or services names may be trademarks or services marks of others.
+  
+  All libraries used in this code are copyright their respective authors.
+  
+  This code is based on a Elf/OS code libraries written by Mike Riley and assembled with the RcAsm assembler also written by Mike Riley.
+  
+  Elf/OS 
+  Copyright (c) 2004-2021 by Mike Riley
+  
+  RcAsm 1802 Assembler
+  Copyright (c) 2004-2021 by Mike Riley
+    
+  The Pico/Elf Microcomputer Hardware
+  Copyright (c) 2020-2021 by Mike Riley
+   
+  The STG Pico/Elf EPROM v1.07
+  Copyright (c) 1998-2021 by Spare Time Gizmos.
+  
+  STG NVR/RTC/UART Pico/Elf Expansion Card hardware
+  Copyright (c) 2021 by Spare Time Gizmos.
+  
+  Many thanks to the original authors for making their designs and code available as open source.
+   
+  This code, firmware, and software is released under the [MIT License](http://opensource.org/licenses/MIT).
+  
+  The MIT License (MIT)
+  
+  Copyright (c) 2021 by Gaston Williams
+  
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+  
+  **THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.**
