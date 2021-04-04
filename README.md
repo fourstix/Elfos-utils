@@ -72,7 +72,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 
 Library Files
 -------------
-The library files can be unpacked with the Elf/OS lbr command with the e option to *extract* files.
+The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
 * misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the clear, input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
 * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG ROM utilities contains the stg, videostg and xsb commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
