@@ -1,6 +1,7 @@
 # Elfos-utils
-Simple utility commands for the Elf/OS.  These commands were all assembled using the 
-RcAsm 1802 Assembler by Mike Riley, and run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html)
+Simple utility commands for the Elf/OS.  These commands were all assembled into Intel hex files using the 
+RcAsm 1802 Assembler by Mike Riley. The hex files were converted into binary files using
+[hex2bin](https://sourceforge.net/projects/hex2bin/) and run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html)
 with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html)
 and the [STG Pico/Elf EPROM v1.07](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v107.zip) written by Bob Kay. A lot of information and software for the Pico/Elf can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
@@ -40,11 +41,11 @@ STG NVR/RTC/UART and STG ROM Utility Commands
 
 ## stg
 **Usage:** stg    
-Jump to the STG Pico/Elf Rom v1.07 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the ROM menu.
+Jump to the STG Pico/Elf EPROM v1.07 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the ROM menu.
 
 ## visualstg
 **Usage:** visualstg  
-Run Visual02 from the STG Pico/Elf ROM v1.07 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf ROM.  (You can rename it to visual02.)
+Run Visual02 from the STG Pico/Elf EPROM v1.07 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf ROM.  (You can rename it to visual02.)
 
 ## xsb
 **Usage:** xsb *filename*    
@@ -139,10 +140,10 @@ Repository Contents
   Copyright (c) 2020-2021 by Mike Riley
    
   The STG Pico/Elf EPROM v1.07
-  Copyright (c) 1998-2021 by Spare Time Gizmos.
+  Copyright (c) 2004-2021 by Spare Time Gizmos.
   
   STG NVR/RTC/UART Pico/Elf Expansion Card hardware
-  Copyright (c) 2021 by Spare Time Gizmos.
+  Copyright (c) 2020-2021 by Spare Time Gizmos.
   
   Many thanks to the original authors for making their designs and code available as open source.
    
