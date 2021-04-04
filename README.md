@@ -2,8 +2,7 @@
 Simple utility commands for the Elf/OS.  These commands were all assembled using the 
 RcAsm 1802 Assembler by Mike Riley, and run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html)
 with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html)
-and the [STG Pico/Elf EPROM v1.07.](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v107.zip) written by Bob Kay. 
-A lot of information and software for the Pico/Elf can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+and the [STG Pico/Elf EPROM v1.07](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v107.zip) written by Bob Kay. A lot of information and software for the Pico/Elf can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
 Miscellaneous Elf/OS Utility Commands
 -------------------------------------
@@ -16,8 +15,8 @@ Clear the output.
 Input and display data read from Port 4
 
 ## output
-**Usage:** output *hh*  
-Send the hex value *hh* out to Port 4
+**Usage:** output *hh*     
+Send the hex value *hh* out to Port 4 *(where hh ranges in value from 00 to FF)*
 
 ## nop
 **Usage:** nop    
@@ -71,6 +70,14 @@ Tom Pittman's TV Clock program modified to run under Elf/OS.
 Video Off. Output Port 1 and Disable interrupts. This command 
 is useful when debugging or writing pixie video programs to turn off a 1861 video display.
 
+Library Files
+-------------
+The library files can be unpacked with the Elf/OS lbr command with the e option to *extract* files.
+* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the clear, input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
+* stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG ROM utilities contains the stg, videostg and xsb commands. Extract these files with the Elf/OS command *lbr e stg_utils*
+* video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
+
+
 Repository Contents
 -------------------
 * **/src/**  -- Source files for miscellaneous Elf/OS utilities.
@@ -104,7 +111,7 @@ Repository Contents
 * **/bin/video/**  -- Binary files for 1861 Pixie Video utilities and demo programs  
 * **/lbr/**  -- Library files for Elf/OS utilities. (Unpack with Elf/OS lbr command)
   * misc_utils.lbr - Library file for miscellaneous Elf/OS utilities.
-  * misc_utils.lbr - Library file  for STG NVR/RTC/UART and STG ROM utilities.
+  * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG ROM utilities.
   * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities.
   
   License Information
