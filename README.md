@@ -1,8 +1,7 @@
 # Elfos-utils
-Simple utility commands for the Elf/OS.  These commands were all assembled into Intel hex files using the 
+A set of simple utility commands for the Elf/OS.  These commands were all assembled into Intel hex files using the 
 RcAsm 1802 Assembler by Mike Riley. The hex files were converted into binary files using
-[hex2bin](https://sourceforge.net/projects/hex2bin/) and run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html)
-with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html)
+[hex2bin](https://sourceforge.net/projects/hex2bin/). These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html)
 and the [STG Pico/Elf EPROM v1.07](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v107.zip) written by Bob Kay. A lot of information and software for the Pico/Elf can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
 Miscellaneous Elf/OS Utility Commands
@@ -135,6 +134,9 @@ Repository Contents
   
   RcAsm 1802 Assembler
   Copyright (c) 2004-2021 by Mike Riley
+  
+  Hex2bin
+  Copyright (C) 1998-2021 by Jacques Pelletier
     
   The Pico/Elf Microcomputer Hardware
   Copyright (c) 2020-2021 by Mike Riley
