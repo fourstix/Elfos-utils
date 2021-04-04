@@ -38,16 +38,16 @@ Print the string *text* to the output
 **Usage:** stack    
 Print the value of the Elf/OS stack pointer
 
-STG NVR/RTC/UART and STG ROM Utility Commands  
----------------------------------------------
+STG NVR/RTC/UART and STG EPROM Utility Commands  
+-----------------------------------------------
 
 ## stg
 **Usage:** stg    
-Jump to the STG Pico/Elf EPROM v1.07 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the ROM menu.
+Jump to the STG Pico/Elf EPROM v1.07 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the EPROM menu.
 
 ## visualstg
 **Usage:** visualstg  
-Run Visual02 from the STG Pico/Elf EPROM v1.07 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf ROM.  (You can rename it to visual02.)
+Run Visual02 from the STG Pico/Elf EPROM v1.07 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf EPROM.  (You can rename it to visual02.)
 
 ## xsb
 **Usage:** xsb *filename*    
@@ -77,7 +77,7 @@ Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
 * misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the clear, input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
-* stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG ROM utilities contains the stg, videostg and xsb commands. Extract these files with the Elf/OS command *lbr e stg_utils*
+* stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg and xsb commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
 
@@ -94,10 +94,10 @@ Repository Contents
   * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
-* **/src/stg/**  -- Source files for STG NVR/RTC/UART and STG ROM utilities.  
-  * stg.asm - jump to the STG v1.07 Rom menu
-  * visualstg.asm - Run Visual02 from the STG v1.07 Rom code (replaces visual02 command)
-  * xsb.asm - XMODEM Send using the STG UART
+* **/src/stg/**  -- Source files for STG NVR/RTC/UART and STG EPROM utilities.  
+  * stg.asm - jump to the STG v1.07 EPROM menu
+  * visualstg.asm - Run Visual02 from the STG v1.07 EPROM code (replaces visual02 command)
+  * xsb.asm - XMODEM Send using the STG Expansion card UART
   * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
@@ -110,11 +110,11 @@ Repository Contents
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/bin/**  -- Binary files for miscellaneous Elf/OS utilities.  
-* **/bin/stg/**  -- Binary files for STG NVR/RTC/UART ROM utilities. 
+* **/bin/stg/**  -- Binary files for STG NVR/RTC/UART EPROM utilities. 
 * **/bin/video/**  -- Binary files for 1861 Pixie Video utilities and demo programs  
 * **/lbr/**  -- Library files for Elf/OS utilities. (Unpack with Elf/OS lbr command)
   * misc_utils.lbr - Library file for miscellaneous Elf/OS utilities.
-  * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG ROM utilities.
+  * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities.
   * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities.
   
   License Information

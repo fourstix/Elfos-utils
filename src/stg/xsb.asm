@@ -37,11 +37,11 @@ include    kernel.inc
 
            ; Build date
 date:      db      80h+4,         ; Month, 80h offset means extended info
-           db      2              ; Day
+           db      4              ; Day
            dw      2021           ; year = 2021
 
            ; Current build number
-build:     dw      3              ; build
+build:     dw      4              ; build
 
           ; Must end with 0 (null)
            db      'Copyright 2021 Gaston Williams',0
@@ -63,7 +63,7 @@ start:     lda     ra                  ; move past any spaces
            lbnz    start1              ; jump if argument given
            sep     scall               ; otherwise display usage message
            dw      o_inmsg
-           db      'Usage: xs filename',10,13,0
+           db      'Usage: xsb filename',10,13,0
            sep     sret                ; and return to os
 start1:    ghi     ra                  ; copy argument address to rf
            phi     rf
