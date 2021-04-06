@@ -55,11 +55,13 @@ XModem Send command that uses the UART from the STG NVR/RTC/UART card instead of
 
 ## seq  
 **Usage:** seq  
-Set Q.  This command turns the Q bit on. (Q = 1)
+Set Q.  This command turns the Q bit on. (Q = 1) The Q bit is available for use when 
+one is using the STG Expansion Card UART.
 
 ## req  
 **Usage:** req  
-Reset Q.  This command turns the Q bit off. (Q = 0)
+Reset Q.  This command turns the Q bit off. (Q = 0) The Q bit is available for use when 
+one is using the STG Expansion Card UART.
 
 1861 Pixie Video Demo and Utility Commands
 ------------------------------------------
@@ -106,6 +108,8 @@ Repository Contents
   * stg.asm - jump to the STG v1.07 EPROM menu
   * visualstg.asm - Run Visual02 from the STG v1.07 EPROM code (replaces visual02 command)
   * xsb.asm - XMODEM Send using the STG Expansion card UART
+  * seq.asm - Set Q. (The Q bit is available when using the STG Expansion card UART)
+  * req.asm - Reset Q. (The Q bit is available when using the STG Expansion card UART)
   * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
