@@ -106,8 +106,8 @@ Repository Contents
   * stg.asm - jump to the STG v1.07 EPROM menu
   * visualstg.asm - Run Visual02 from the STG v1.07 EPROM code (replaces visual02 command)
   * xsb.asm - XMODEM Send using the STG Expansion card UART
-  * seq.asm - Set Q. (The Q bit is available when using the STG NVR/RTC/UART Expansion card UART)
-  * req.asm - Reset Q. (The Q bit is available when using the STG NVR/RTC/UART Expansion card UART)
+  * seq.asm - Set Q. (The Q bit is available when using the STG Expansion card UART)
+  * req.asm - Reset Q. (The Q bit is available when using the STG Expansion card UART)
   * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
