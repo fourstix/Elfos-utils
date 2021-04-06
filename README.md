@@ -51,15 +51,15 @@ Run Visual02 from the STG Pico/Elf EPROM v1.07 code. This command replaces the E
 
 ## xsb
 **Usage:** xsb *filename*    
-XModem Send command that uses the UART from the STG NVR/RTC/UART card instead of the bit banged serial routines to send the file named *filename*.  This command is the compliment to the xrb XModem receive command, and can be used to send binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expnsion card's UART serial interface.
+XModem Send command that uses the UART from the STG NVR/RTC/UART expansion card instead of the bit banged serial routines to send the file named *filename*.  This command is the compliment to the **xrb** [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr), and can be used to send binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expansion card's UART serial interface.
 
 ## seq  
 **Usage:** seq  
-Set Q.  This command turns the Q bit on. (Q = 1) The Q bit is available for use when using the STG Expansion Card UART.
+Set Q.  This command turns the Q bit on. (Q = 1) The Q bit is available for use when using the STG NVR/RTC/UART Expansion Card UART.
 
 ## req  
 **Usage:** req  
-Reset Q.  This command turns the Q bit off. (Q = 0) The Q bit is available for use when using the STG Expansion Card UART.
+Reset Q.  This command turns the Q bit off. (Q = 0) The Q bit is available for use when using the STG NVR/RTC/UART Expansion Card UART.
 
 1861 Pixie Video Demo and Utility Commands
 ------------------------------------------
@@ -106,8 +106,8 @@ Repository Contents
   * stg.asm - jump to the STG v1.07 EPROM menu
   * visualstg.asm - Run Visual02 from the STG v1.07 EPROM code (replaces visual02 command)
   * xsb.asm - XMODEM Send using the STG Expansion card UART
-  * seq.asm - Set Q. (The Q bit is available when using the STG Expansion card UART)
-  * req.asm - Reset Q. (The Q bit is available when using the STG Expansion card UART)
+  * seq.asm - Set Q. (The Q bit is available when using the STG NVR/RTC/UART Expansion card UART)
+  * req.asm - Reset Q. (The Q bit is available when using the STG NVR/RTC/UART Expansion card UART)
   * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
