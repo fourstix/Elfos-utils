@@ -55,13 +55,11 @@ XModem Send command that uses the UART from the STG NVR/RTC/UART card instead of
 
 ## seq  
 **Usage:** seq  
-Set Q.  This command turns the Q bit on. (Q = 1) The Q bit is available for use when 
-one is using the STG Expansion Card UART.
+Set Q.  This command turns the Q bit on. (Q = 1) The Q bit is available for use when using the STG Expansion Card UART.
 
 ## req  
 **Usage:** req  
-Reset Q.  This command turns the Q bit off. (Q = 0) The Q bit is available for use when 
-one is using the STG Expansion Card UART.
+Reset Q.  This command turns the Q bit off. (Q = 0) The Q bit is available for use when using the STG Expansion Card UART.
 
 1861 Pixie Video Demo and Utility Commands
 ------------------------------------------
