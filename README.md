@@ -41,7 +41,7 @@ Print the value of the Elf/OS stack pointer
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
 
-## stg
+## stg  
 **Usage:** stg    
 Jump to the STG Pico/Elf EPROM v1.07 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the EPROM menu.
 
@@ -52,6 +52,14 @@ Run Visual02 from the STG Pico/Elf EPROM v1.07 code. This command replaces the E
 ## xsb
 **Usage:** xsb *filename*    
 XModem Send command that uses the UART from the STG NVR/RTC/UART card instead of the bit banged serial routines to send the file named *filename*.  This command is the compliment to the xrb XModem receive command, and can be used to send binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expnsion card's UART serial interface.
+
+## seq  
+**Usage:** seq  
+Set Q.  This command turns the Q bit on. (Q = 1)
+
+## req  
+**Usage:** req  
+Reset Q.  This command turns the Q bit off. (Q = 0)
 
 1861 Pixie Video Demo and Utility Commands
 ------------------------------------------
