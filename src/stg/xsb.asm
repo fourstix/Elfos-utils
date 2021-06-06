@@ -36,12 +36,12 @@ include    kernel.inc
            br      start
 
            ; Build date
-date:      db      80h+4,         ; Month, 80h offset means extended info
-           db      4              ; Day
+date:      db      80h+6,         ; Month, 80h offset means extended info
+           db      6              ; Day
            dw      2021           ; year = 2021
 
            ; Current build number
-build:     dw      4              ; build
+build:     dw      5              ; build
 
           ; Must end with 0 (null)
            db      'Copyright 2021 Gaston Williams',0
@@ -155,7 +155,7 @@ xopenw:    push    rf                ; save consumed register
            ani     0feh
            phi     re                ; put it back
 xopenw1:   sep     scall             ; read a byte from the serial port
-           dw      f_uread
+           dw      f_read
            smi     nak               ; need a nak character
            lbnz    xopenw1           ; wait until a nak is received
            pop     rf                ; recover rf
@@ -209,7 +209,7 @@ xsend:     push    rf                 ; save consumed registers
 xsendnak:  ldi     soh                ; need to send soh character
            phi     rc                 ; initial value for checksum
            sep     scall              ; send it
-           dw      f_utype
+           dw      f_tty
            mov     rf,block           ; need current block number
            ldn     rf                 ; get block number
            str     r2                 ; save it
@@ -218,7 +218,7 @@ xsendnak:  ldi     soh                ; need to send soh character
            phi     rc                 ; put it back
            ldn     r2                 ; recover block number
            sep     scall              ; and send it
-           dw      f_utype
+           dw      f_tty
            ldn     rf                 ; get block number back
            sdi     255                ; subtract from 255
            str     r2                 ; save it
@@ -227,7 +227,7 @@ xsendnak:  ldi     soh                ; need to send soh character
            phi     rc                 ; put it back
            ldn     r2                 ; recover inverted block number
            sep     scall              ; send it
-           dw      f_utype
+           dw      f_tty
            ldi     128                ; 128 bytes to write
            plo     rc                 ; place into counter
            mov     rf,txrx            ; point rf to data block
@@ -238,15 +238,15 @@ xsend1:    lda     rf                 ; retrieve next byte
            phi     rc                 ; save checksum
            ldn     r2                 ; recover byte
            sep     scall              ; and send it
-           dw      f_utype
+           dw      f_tty
            dec     rc                 ; decrement byte count
            glo     rc                 ; get count
            lbnz    xsend1             ; jump if more bytes to send
            ghi     rc                 ; get checksum byte
            sep     scall              ; and send it
-           dw      f_utype
+           dw      f_tty
 xsend2:    sep     scall              ; read byte from serial port
-           dw      f_uread
+           dw      f_read
            str     r2                 ; save it
            smi     nak                ; was it a nak
            lbz     xsendnak           ; resend block if nak
@@ -287,9 +287,9 @@ xclosew1:  ldi     csub               ; character to put into buffer
            dw      xsend
 xclosewd:  ldi     eot                ; need to send eot
            sep     scall              ; send it
-           dw      f_utype
+           dw      f_tty
            sep     scall              ; read a byte
-           dw      f_uread
+           dw      f_read
            smi     06h                ; needs to be an ACK
            lbnz    xclosewd           ; resend EOT if not ACK
            mov     rf,baud            ; need to restore baud constant
