@@ -9,10 +9,6 @@ These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/
 
 Miscellaneous Elf/OS Utility Commands
 -------------------------------------
-## clear
-**Usage:** clear  
-Clear the output.
-
 ## input
 **Usage:** input  
 Input and display data read from Port 4
@@ -84,7 +80,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the clear, input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
+* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
 * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
@@ -92,7 +88,6 @@ The command files are grouped into three Elf/OS library files that can be unpack
 Repository Contents
 -------------------
 * **/src/**  -- Source files for miscellaneous Elf/OS utilities.
-  * clear.asm - clear the output
   * input.asm - Input and display data read from Port 4
   * output.asm - Output hh - send the hex value 'hh' out to Port 4
   * nop.asm - No Operation - simple program that does nothing.
