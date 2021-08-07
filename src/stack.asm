@@ -30,12 +30,12 @@ include kernel.inc
         br      start           ; Jump past build information
 
         ; Build date
-date:   db      80H + 3         ; Month (3) 80H offset means extended info
-        db      2               ; Day (2)
+date:   db      80H + 8         ; Month (3) 80H offset means extended info
+        db      7               ; Day (2)
         dw      2021            ; Year (2021)
 
         ; Current build number
-build:  dw     1
+build:  dw      4
         ; Must end with 0 (null)
 
         db      'Copyright 2021 by Gaston Williams',0
@@ -50,7 +50,7 @@ start:     ghi     r2
            mov     rf,buffer           ; point to output buffer
            sep     scall               ; and display it
            dw      o_msg
-           lbr     o_wrmboot           ; and return to Elf/OS
+           sep     sret                ; return to Elf/OS
            
 buffer:    db      0,0,0,0,10,13,0
 

@@ -31,12 +31,12 @@ include    kernel.inc
            br      start          ; Jump past build information
 
            ; Build date
-date:      db      80h+2,         ; Month, 80h offset means extended info
-           db      8              ; Day
+date:      db      80h+8          ; Month, 80h offset means extended info
+           db      7              ; Day
            dw      2021           ; year = 2021
 
            ; Current build number
-build:     dw      3              ; build
+build:     dw      4              ; build
 
           ; Must end with 0 (null)
            db      'Copyright 2021 Gaston Williams',0

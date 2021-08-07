@@ -22,12 +22,12 @@ include   kernel.inc
                     br  start           ; Jump past build info to code
 
 ; Build information
-binfo:              db  80H+3           ; Month, 80H offset means extended info
-                    db  29              ; Day
+binfo:              db  80H+8           ; Month, 80H offset means extended info
+                    db  7               ; Day
                     dw  2021            ; Year
 
                     ; Current build number
-build:              dw  1
+build:              dw  4
 
                     ; Must end with 0 (null)
                     db  'Copyright 2021 Gaston Williams',0
@@ -39,7 +39,7 @@ build:              dw  1
 start:              lda  ra                 ; move past any spaces
                     smi  ' '
                     bz   start
-                    dec  ra                ; move back to non-space character
+                    dec  ra                 ; move back to non-space character
                     ldn  ra                 ; check for nonzero byte
                     bnz  good               ; jump if non-zero
                     ldi  high usage         ; get error message
@@ -48,7 +48,7 @@ start:              lda  ra                 ; move past any spaces
                     plo  rf
                     sep  scall              ; otherwise display
                     dw   o_msg              ; usage message and
-                    lbr  o_wrmboot          ; return to Elf/OS
+                    sep  sret               ; return to Elf/OS
                           
 good:               ghi  ra                 ; copy RA to RF
                     phi  rf
@@ -57,7 +57,7 @@ good:               ghi  ra                 ; copy RA to RF
          
                     sep  scall             ; display
                     dw   o_msg             ; text message and            
-                    lbr  o_wrmboot         ; return to Elf/OS
+                    sep  sret              ; return to Elf/OS
                         
 usage:              db   'Usage: say text',10,13,0 
                         

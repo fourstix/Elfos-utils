@@ -29,12 +29,12 @@ include kernel.inc
         br      start           ; Jump past build information
 
         ; Build date
-date:   db      80H+1           ; Month, 80H offset means extended info
-        db      1               ; Day
+date:   db      80H+8           ; Month, 80H offset means extended info
+        db      7               ; Day
         dw      2021            ; Year
 
         ; Current build number
-build:  dw      2
+build:  dw      4
 
         ; Must end with 0 (null)
         db      'Copyright 2021 Gaston Williams',0
@@ -42,7 +42,7 @@ build:  dw      2
 start:  inp     4                   ; input data from Port 4
         plo     rd                  ; put data byte into rd for conversion
 
-        ldi     high buffer          ; Set up rf to point to a buffer
+        ldi     high buffer         ; Set up rf to point to a buffer
         phi     rf
         ldi     low buffer
         plo     rf
@@ -50,7 +50,7 @@ start:  inp     4                   ; input data from Port 4
         sep     scall               ; convert to 2 char ASCII
         dw      f_hexout2
 
-        ldi     high buffer          ; Set up rf to point to a buffer
+        ldi     high buffer         ; Set up rf to point to a buffer
         phi     rf
         ldi     low buffer
         plo     rf
@@ -59,8 +59,8 @@ start:  inp     4                   ; input data from Port 4
         dw      o_msg
 
 
-        lbr     o_wrmboot           ; return to Elf/OS
+        sep     sret                ; return to Elf/OS
 
-buffer: db  0,0,0,0               ; 2 char hex value
+buffer: db  0,0,0,0                 ; 2 char hex value
         ;------ define end of execution block
 endrom: equ     $

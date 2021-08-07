@@ -29,18 +29,18 @@ include kernel.inc
         br      start           ; Jump past build information
 
         ; Build date
-date:   db      80H+4           ; Month, 80H offset means extended info
-        db      6               ; Day
+date:   db      80H+8           ; Month, 80H offset means extended info
+        db      7               ; Day
         dw      2021            ; Year
 
         ; Current build number
-build:  dw      1
+build:  dw      4
 
         ; Must end with 0 (null)
         db      'Copyright 2021 Gaston Williams',0
 
-start:  req			; reset the q bit
-	lbr     o_wrmboot       ; return to Elf/OS
+start:  req			        ; reset the q bit
+	      sep     sret    ; return to Elf/OS
 
         ;------ define end of execution block
 endrom: equ     $

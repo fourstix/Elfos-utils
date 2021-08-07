@@ -29,12 +29,12 @@ include kernel.inc
       org     02000h            ; Program code starts here
         br      start           ; Jump past build information
         ; Build date
-date:   db      80H+1           ; Month, 80H offset means extended info
-        db      1               ; Day
+date:   db      80H+8           ; Month, 80H offset means extended info
+        db      7               ; Day
         dw      2021            ; Year
 
         ; Current build number
-build:  dw      2
+build:  dw      4
 
         ; Must end with 0 (null)
         db      'Copyright 2021 Gaston Williams',0
@@ -62,6 +62,6 @@ good:  ghi     ra                  ; copy argument address to rf
        out 4                       ; output to port 4, increments stack
        dec     r2                  ; back stack up to old location
 
-       lbr     o_wrmboot           ; return to Elf/OS
+       sep     sret                ; return to Elf/OS
         ;------ define end of execution block
 endrom: equ     $
