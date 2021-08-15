@@ -25,7 +25,6 @@ No Operation, a simple program that does nothing.
 **Usage:** pwd    
 Print Working Directory, write the current directory to the output.
 
-
 ## say
 **Usage:** say *text*      
 Print the string *text* to the output
@@ -33,6 +32,14 @@ Print the string *text* to the output
 ## stack
 **Usage:** stack    
 Print the value of the Elf/OS stack pointer
+
+## cmd
+**Usage:** cmd [-e] [*filename*, default = start.cmd]    
+Run commands from the file *filename*, or the file start.cmd if not specified. 
+The option -e will echo the commands before they are executed. 
+**Note:** Copying this file as an executable file named *init* in the /bin directory
+will cause the Elf/OS to execute the commands in the start.cmd in the root Directory
+when the Elf/OS boots.
 
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
@@ -80,7 +87,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
+* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the cmd, input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
 * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
@@ -93,7 +100,8 @@ Repository Contents
   * nop.asm - No Operation - simple program that does nothing.
   * pwd.asm - Print Working Directory - prints the current directory
   * say.asm - Say 'text' - write the text string back to the output
-  * stack.asm - print the value of the Elf/OS stack pointer
+  * stack.asm - Print the value of the Elf/OS stack pointer
+  * cmd.asm - Run commands from a file.
   * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
@@ -142,6 +150,9 @@ Repository Contents
   
   RcAsm 1802 Assembler
   Copyright (c) 2004-2021 by Mike Riley
+  
+  Elf/OS Init Program 
+  Copyright (c) 2021 by David Madole
   
   Hex2bin
   Copyright (C) 1998-2021 by Jacques Pelletier
