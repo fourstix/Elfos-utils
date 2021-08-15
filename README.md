@@ -36,10 +36,10 @@ Print the value of the Elf/OS stack pointer
 ## cmd
 **Usage:** cmd [-e] [*filename*, default = start.cmd]    
 Run commands from the file *filename*, or the file start.cmd if not specified. 
-The option -e will echo the commands before they are executed. 
-**Note:** Copying this file as an executable file named *init* in the /bin directory
-will cause the Elf/OS to execute the commands in the start.cmd in the root Directory
-when the Elf/OS boots.
+The option -e will echo the commands before they are executed.
+ 
+**Note:** 
+To use *cmd* as the ELf/OS init program, copy this file as an executable file named *init* in the /bin directory. The Elf/OS will then execute the commands contained in the start.cmd file in the root directory when the Elf/OS boots.
 
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
