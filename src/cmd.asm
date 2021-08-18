@@ -37,13 +37,16 @@ start:     org     5000h
            ; Build information
 
            db      8+80h              ; month
-           db      15                 ; day
+           db      18                 ; day
            dw      2021               ; year
-           dw      1                  ; build
+           dw      4                  ; build
 text:      db      'Copyright 2021 Gaston Williams',0
 
            ; If Input button is pressed when run, skip execution
 main:      bn4     chk_os
+           sep     scall              ; autobaud is needed in case of init
+           dw      o_setbd            ; otherwise we might get stuck after reboot
+           
            lbr     goodbye            ; exit program
 
            ; verify elf/os kernel version before executing

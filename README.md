@@ -27,19 +27,27 @@ Print Working Directory, write the current directory to the output.
 
 ## say
 **Usage:** say *text*      
-Print the string *text* to the output
+Print the string *text* to the output.
 
 ## stack
 **Usage:** stack    
-Print the value of the Elf/OS stack pointer
+Print the value of the Elf/OS stack pointer.
 
 ## cmd
 **Usage:** cmd [-e] [*filename*, default = start.cmd]    
-Run commands from the file *filename*, or the file start.cmd if not specified. 
-The option -e will echo the commands before they are executed.
+Run commands from the file *filename*, or the file start.cmd if not specified. Each
+line of the file contains a separate command. The option -e will echo the commands before they are executed.
  
 **Note:** 
-To use *cmd* as the ELf/OS init program, copy this file as an executable file named *init* in the /bin directory. The Elf/OS will then execute the commands contained in the start.cmd file in the root directory when the Elf/OS boots.
+To use *cmd* as the ELf/OS init program, copy this file as an executable file named *init* in the /bin directory. The Elf/OS will then execute the commands contained in the start.cmd file in the root / directory when the Elf/OS boots. *(Press and hold Input /EF4 to skip the execution of start.cmd and auto-baud during boot-up.)* 
+
+## cls
+**Usage:** cls    
+Clear the display screen. *(Clears both ANSI and non-ANSI displays.)*
+
+## MemoryHog
+**Usage:** MemoryHog *size*    
+Allocate a block of memory of *size* bytes on the heap for testing low memory conditions.
 
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
