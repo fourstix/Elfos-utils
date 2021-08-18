@@ -39,26 +39,26 @@ Run commands from the file *filename*, or the file start.cmd if not specified. E
 line of the file contains a separate command. The option -e will echo the commands before they are executed.
  
 **Note:** 
-To use *cmd* as the ELf/OS init program, copy this file as an executable file named *init* in the /bin directory. The Elf/OS will then execute the commands contained in the start.cmd file in the root / directory when the Elf/OS boots. *(Press and hold Input /EF4 to skip the execution of start.cmd and auto-baud during boot-up.)* 
+To use *cmd* as the ELf/OS init program, copy this file as an executable file named *init* in the /bin directory. The Elf/OS will then execute the commands contained in the start.cmd file in the root / directory when the Elf/OS boots. *Press and hold Input /EF4 to skip the execution of start.cmd and auto-baud during boot-up.* 
 
 ## cls
 **Usage:** cls    
-Clear the display screen. *(Clears both ANSI and non-ANSI displays.)*
+Clear the screen. *Clears both ANSI and non-ANSI displays.*
 
 ## MemoryHog
 **Usage:** MemoryHog *size*    
-Allocate a block of memory of *size* bytes on the heap for testing low memory conditions.
+Allocate a block of memory of *size* bytes on the heap. *Used for testing low memory conditions.*
 
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
 
 ## stg  
 **Usage:** stg    
-Jump to the STG Pico/Elf EPROM v1.07 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the EPROM menu.
+Jump to the STG Pico/Elf EPROM v1.12 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the EPROM menu.
 
 ## visualstg
 **Usage:** visualstg  
-Run Visual02 from the STG Pico/Elf EPROM v1.07 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf EPROM.  (You can rename it to visual02.)
+Run Visual02 from the STG Pico/Elf EPROM v1.12 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf EPROM.  (You can rename it to visual02.)
 
 ## xsb
 **Usage:** xsb *filename*    
@@ -95,7 +95,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the cmd, input, output, nop, pwd, say and stack commands. Extract these files with the Elf/OS command *lbr e misc_utils*
+* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the cmd, cls, input, output, nop, pwd, say, stack and MemoryHog commands. Extract these files with the Elf/OS command *lbr e misc_utils*
 * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
@@ -110,12 +110,14 @@ Repository Contents
   * say.asm - Say 'text' - write the text string back to the output
   * stack.asm - Print the value of the Elf/OS stack pointer
   * cmd.asm - Run commands from a file.
+  * cls.asm - Clear the screen
+  * MemoryHog.asm - Allocate block of memory from heap for testing.
   * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/src/stg/**  -- Source files for STG NVR/RTC/UART and STG EPROM utilities.  
-  * stg.asm - jump to the STG v1.07 EPROM menu
-  * visualstg.asm - Run Visual02 from the STG v1.07 EPROM code (replaces visual02 command)
+  * stg.asm - jump to the STG v1.12 EPROM menu
+  * visualstg.asm - Run Visual02 from the STG v1.12 EPROM code (replaces visual02 command)
   * xsb.asm - XMODEM Send using the STG Expansion card UART
   * seq.asm - Set Q. (The Q bit is available when using the STG Expansion card UART)
   * req.asm - Reset Q. (The Q bit is available when using the STG Expansion card UART)
@@ -168,7 +170,7 @@ Repository Contents
   The Pico/Elf Microcomputer Hardware
   Copyright (c) 2020-2021 by Mike Riley
    
-  The STG Pico/Elf EPROM v1.07
+  The STG Pico/Elf EPROM v1.12
   Copyright (c) 2004-2021 by Spare Time Gizmos.
   
   STG NVR/RTC/UART Pico/Elf Expansion Card hardware
