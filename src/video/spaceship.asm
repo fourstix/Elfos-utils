@@ -39,10 +39,10 @@ include    kernel.inc
 ; ***    No information text string              ***
 ; **************************************************
 
-date:      db      80h+1   ; January
-           db      12      ; Day
+date:      db      80h+8   ; January
+           db      21      ; Day
            dw      2021    ; Year
-build:     dw      3       ; build
+build:     dw      4       ; build for kernel 4
            db      0       ; No room for information string!
 
 start:     ghi     r3            ; P=3, X=2 in Elf/OS

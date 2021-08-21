@@ -16,13 +16,13 @@
 
 
            ; Include bios ad kernel API
-           include bios.inc
-           include kernel.inc
+include bios.inc
+include kernel.inc
 
            ; Define internal kernel AP
-d_reapheap equ 044dh
-d_progend  equ 0450h
-d_lowmem   equ 0465h
+d_reapheap: equ 044dh
+d_progend:  equ 0450h
+d_lowmem:   equ 0465h
 
            ; Program header to start at $5000
 
@@ -37,7 +37,7 @@ start:     org     5000h
            ; Build information
 
            db      8+80h              ; month
-           db      18                 ; day
+           db      21                 ; day
            dw      2021               ; year
            dw      4                  ; build
 text:      db      'Copyright 2021 Gaston Williams',0

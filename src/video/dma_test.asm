@@ -36,11 +36,11 @@ include    kernel.inc
 ; **************************************************
 ; *** Build information:                         ***
 ; **************************************************
-date:      db      80h+1  ; Month: January
-           db      12     ; Day
+date:      db      80h+8  ; Month
+           db      21     ; Day
            dw      2021   ; Year
 
-build:     dw      3      ; build
+build:     dw      4      ; build for kernel 4
 
            db      'Copyright 2021 Gaston Williams',0
 

@@ -1,3 +1,7 @@
+; -------------------------------------------------------------------
+; Program to launch the Visual/02 debugger from the STG ROM
+; Copyright 2021 by Gaston Williams
+; -------------------------------------------------------------------
 ; *******************************************************************
 ; *** This software is copyright 2004 by Michael H Riley          ***
 ; *** You have permission to use, modify, copy, and distribute    ***
@@ -26,12 +30,12 @@ include    kernel.inc
            br      start            ; Jump past build information
        
        ; Build date
-date:      db      80H+3            ; Month (12) 80H offset means extended info
-           db      31               ; Day (31)
-           dw      2021             ; Year (2020)
-
+date:      db      80H+8            ; Month 80H offset means extended info
+           db      21               ; Day
+           dw      2021             ; Year
+           
        ; Current build number
-build:     dw      1                ; first build
+build:     dw      4                ; build for kernel 4
 
                                     ; Must end with 0 (null)
            db      'Copyright 2021 by Gaston Williams',0

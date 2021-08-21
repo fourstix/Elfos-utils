@@ -1,3 +1,7 @@
+; -------------------------------------------------------------------
+; XMODEM Send for the STG Hardware UART
+; Copyright 2021 by Gaston Williams
+; -------------------------------------------------------------------
 ; *******************************************************************
 ; *** This software is copyright 2005 by Michael H Riley          ***
 ; *** You have permission to use, modify, copy, and distribute    ***
@@ -5,20 +9,6 @@
 ; *** This software may not be used in commercial applications    ***
 ; *** without express written permission from the author.         ***
 ; *******************************************************************
-
-#define PICOELF
-
-#ifdef PICOELF
-#define SERP    bn2
-#define SERN    b2
-#define SERSEQ     req
-#define SERREQ     seq
-#else
-#define SERP    b2
-#define SERN    bn2
-#define SERSEQ     seq
-#define SERREQ     req
-#endif
 
 include    bios.inc
 include    kernel.inc
@@ -36,12 +26,12 @@ include    kernel.inc
            br      start
 
            ; Build date
-date:      db      80h+6,         ; Month, 80h offset means extended info
-           db      6              ; Day
+date:      db      80h+8          ; Month, 80h offset means extended info
+           db      21             ; Day
            dw      2021           ; year = 2021
 
            ; Current build number
-build:     dw      5              ; build
+build:     dw      4              ; build for kernel 4
 
           ; Must end with 0 (null)
            db      'Copyright 2021 Gaston Williams',0
@@ -303,7 +293,7 @@ xclosewd:  ldi     eot                ; need to send eot
 endrom:    equ     $
 dta:       ds      512
 
-base:      equ     $                 ; XMODEM data segment
+base:      equ      $                 ; XMODEM data segment
 baud:      equ     base+0
 init:      equ     base+1
 block:     equ     base+2            ; current block
@@ -323,5 +313,4 @@ etx:       equ     03h
 eot:       equ     04h
 can:       equ     18h
 csub:      equ     1ah
-
 rxbuffer:  equ     base+200h

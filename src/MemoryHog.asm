@@ -1,9 +1,8 @@
 ; *******************************************************************************************
 ; MemoryHog - Allocate a block of memory on the heap for testing low memory conditions.
-;
 ; Copyright (c) 2021 by Gaston Williams
-;
 ; *******************************************************************************************
+
 include bios.inc
 include kernel.inc
                                                  
@@ -21,7 +20,7 @@ include kernel.inc
 
 ; Build information
 binfo:              db  80H+8             ; Month, 80H offset means extended info
-                    db  18                ; Day
+                    db  21                ; Day
                     dw  2021              ; Year
 
                     ; Current build number
@@ -52,7 +51,7 @@ good:  ghi     ra          ; copy argument address to rf
        sep     scall       ; convert input to integer value
        dw      f_atoi
 
-start: ghi     rd          ; RD contains the block size in bytes
+       ghi     rd          ; RD contains the block size in bytes
        phi     rc          ; Move size into RC for allocate
        glo     rd
        plo     rc          ; load block size
