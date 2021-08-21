@@ -1,7 +1,6 @@
 # Elfos-utils  
-A set of simple utility commands for the Elf/OS.  These commands were all assembled into Intel hex files using the 
-[RcAsm 1802 Assembler](https://github.com/rileym65/RcAsm) by Mike Riley. The hex files were converted into binary files using
-[hex2bin](https://sourceforge.net/projects/hex2bin/) for Windows.  
+A set of simple utility commands for the Elf/OS.  These commands were all assembled into 1802 binary files using the 
+[Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
 
 Platform  
 --------
@@ -112,7 +111,7 @@ Repository Contents
   * cmd.asm - Run commands from a file.
   * cls.asm - Clear the screen
   * MemoryHog.asm - Allocate block of memory from heap for testing.
-  * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
+  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/src/stg/**  -- Source files for STG NVR/RTC/UART and STG EPROM utilities.  
@@ -121,7 +120,7 @@ Repository Contents
   * xsb.asm - XMODEM Send using the STG Expansion card UART
   * seq.asm - Set Q. (The Q bit is available when using the STG Expansion card UART)
   * req.asm - Reset Q. (The Q bit is available when using the STG Expansion card UART)
-  * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
+  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/src/video/**  -- Source files for 1861 Pixie Video utilities and demo programs
@@ -129,7 +128,7 @@ Repository Contents
   * dma_test -Tom Pittman's Video DMA program (Press Input /EF4 to exit)
   * tvclock - Tom Pittman's TV Clock Demo program (Press Input /EF4 to exit)
   * voff - Turn 1861 Pixie Video Off (OUT 1 and disable interrupts)  
-  * make_xxx.bat - Windows batch file to assemble xxx.asm and create binary
+  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/bin/**  -- Binary files for miscellaneous Elf/OS utilities.  
@@ -158,14 +157,11 @@ Repository Contents
   Elf/OS 
   Copyright (c) 2004-2021 by Mike Riley
   
-  RcAsm 1802 Assembler
+  Asm/02 1802 Assembler
   Copyright (c) 2004-2021 by Mike Riley
   
   Elf/OS Init Program 
   Copyright (c) 2021 by David Madole
-  
-  Hex2bin
-  Copyright (C) 1998-2021 by Jacques Pelletier
     
   The Pico/Elf Microcomputer Hardware
   Copyright (c) 2020-2021 by Mike Riley

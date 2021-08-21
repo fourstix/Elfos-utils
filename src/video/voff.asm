@@ -1,5 +1,6 @@
 ; -------------------------------------------------------------------
 ; Output to port 1 twice to turn pixie video off
+; Copyright 2021 by Gaston Williams
 ; -------------------------------------------------------------------
 ; Based on software written by Michael H Riley
 ; Thanks to the author for making this code available.
@@ -27,12 +28,12 @@ include kernel.inc
       org     02000h            ; Program code starts here
         br      start           ; Jump past build information
         ; Build date
-date:   db      80H+4           ; Month, 80H offset means extended info
-        db      2               ; Day
+date:   db      80H+8           ; Month, 80H offset means extended info
+        db      21              ; Day
         dw      2021            ; Year
 
         ; Current build number
-build:  dw      3
+build:  dw      4
 
         ; Must end with 0 (null)
         db      'Copyright 2021 Gaston Williams',0

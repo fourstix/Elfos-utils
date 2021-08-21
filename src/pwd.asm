@@ -32,8 +32,8 @@ include    kernel.inc
 
            ; Build date
 date:      db      80h+8          ; Month, 80h offset means extended info
-           db      7              ; Day
-           dw      2021           ; year = 2021
+           db      21             ; Day
+           dw      2021           ; Year
 
            ; Current build number
 build:     dw      4              ; build

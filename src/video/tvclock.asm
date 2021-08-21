@@ -38,12 +38,12 @@ include    kernel.inc
 ; ***    No information text string              ***
 ; **************************************************
 ; Build date
-date:   db      80h+4,         ; Month, 80h offset means extended info
-        db      2              ; Day
+date:   db      80h+8          ; Month, 80h offset means extended info
+        db      21             ; Day
         dw      2021           ; year = 2021
 
 ; Current build number
-build:  dw      1              ; build
+build:  dw      4              ; build for kernel 4
 
 ; Must end with 0 (null)
         db      0              ; No room for information string!

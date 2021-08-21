@@ -1,13 +1,10 @@
 ; *******************************************************************************************
 ; Say - Write input string to console
-;
 ; Copyright (c) 2021 by Gaston Williams
-;
 ; *******************************************************************************************
+
 include   bios.inc
 include   kernel.inc
-
-
 
 ; ************************************************************
 ; This block generates the Execution header
@@ -23,7 +20,7 @@ include   kernel.inc
 
 ; Build information
 binfo:              db  80H+8           ; Month, 80H offset means extended info
-                    db  7               ; Day
+                    db  21              ; Day
                     dw  2021            ; Year
 
                     ; Current build number
@@ -48,7 +45,8 @@ start:              lda  ra                 ; move past any spaces
                     plo  rf
                     sep  scall              ; otherwise display
                     dw   o_msg              ; usage message and
-                    sep  sret               ; return to Elf/OS
+                    ;sep  sret               ; return to Elf/OS
+                    lbr  o_wrmboot          ; return to Elf/OS
                           
 good:               ghi  ra                 ; copy RA to RF
                     phi  rf
@@ -57,7 +55,8 @@ good:               ghi  ra                 ; copy RA to RF
          
                     sep  scall             ; display
                     dw   o_msg             ; text message and            
-                    sep  sret              ; return to Elf/OS
+                    ; sep  sret              ; return to Elf/OS
+                    lbr  o_wrmboot          ; return to Elf/OS
                         
 usage:              db   'Usage: say text',10,13,0 
                         

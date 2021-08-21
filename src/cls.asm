@@ -30,7 +30,7 @@ include kernel.inc
         br      start           ; Jump past build information
         ; Build date
 date:   db      80H+8           ; Month 80H offset means extended info
-        db      16              ; Day
+        db      21              ; Day
         dw      2021            ; Year
 
         ; Current build number
