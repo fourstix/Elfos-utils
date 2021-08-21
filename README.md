@@ -111,7 +111,7 @@ Repository Contents
   * cmd.asm - Run commands from a file.
   * cls.asm - Clear the screen
   * MemoryHog.asm - Allocate block of memory from heap for testing.
-  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file
+  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/src/stg/**  -- Source files for STG NVR/RTC/UART and STG EPROM utilities.  
@@ -120,7 +120,7 @@ Repository Contents
   * xsb.asm - XMODEM Send using the STG Expansion card UART
   * seq.asm - Set Q. (The Q bit is available when using the STG Expansion card UART)
   * req.asm - Reset Q. (The Q bit is available when using the STG Expansion card UART)
-  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file
+  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/src/video/**  -- Source files for 1861 Pixie Video utilities and demo programs
@@ -128,7 +128,7 @@ Repository Contents
   * dma_test -Tom Pittman's Video DMA program (Press Input /EF4 to exit)
   * tvclock - Tom Pittman's TV Clock Demo program (Press Input /EF4 to exit)
   * voff - Turn 1861 Pixie Video Off (OUT 1 and disable interrupts)  
-  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file
+  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/bin/**  -- Binary files for miscellaneous Elf/OS utilities.  

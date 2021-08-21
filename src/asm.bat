@@ -1,1 +1,1 @@
-C:\Users\fours\Utilities\Asm02\asm02 -b -l -pev2 %1
+[Your Path]\Asm02\asm02 -b -l -pev2 %1
