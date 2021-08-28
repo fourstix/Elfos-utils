@@ -58,7 +58,7 @@ Print the value of the Elf/OS stack pointer.
 
 ## xtrim
 **Usage:** xtrim *filename*, where *filename* is an executable file.  
-Trim the executable file *filename* to the runtime size in the header, and save it with the .tr extension.  *Useful to remove padding bytes added by XMODEM transfers* 
+Trim the executable file *filename* to the runtime size in its header, and save with the .tr extension.  *Useful to remove padding bytes added by an XMODEM transfers* 
 
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
@@ -106,7 +106,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the cmd, cls, input, output, nop, pwd, say, stack and MemoryHog commands. Extract these files with the Elf/OS command *lbr e misc_utils*
+* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the cmd, cls, input, malloc, mfree, output, nop, pwd, say, stack and xtrim commands. Extract these files with the Elf/OS command *lbr e misc_utils*
 * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
