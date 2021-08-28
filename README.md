@@ -58,7 +58,7 @@ Print the value of the Elf/OS stack pointer.
 
 ## xtrim
 **Usage:** xtrim *filename*, where *filename* is an executable file.  
-Trim the executable file *filename* to the runtime size in its header, and save with the .tr extension.  *Useful to remove padding bytes added by an XMODEM transfers* 
+Trim the executable file *filename* to the runtime size in its header, and save with the .tr extension.  *Useful to remove padding bytes added by an XMODEM transfer* 
 
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
