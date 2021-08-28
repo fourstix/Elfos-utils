@@ -1,5 +1,5 @@
 ; *******************************************************************************************
-; MemoryHog - Allocate a block of memory on the heap for testing low memory conditions.
+; mfree - De-allocate a block of memory from the heap.
 ; Copyright (c) 2021 by Gaston Williams
 ; *******************************************************************************************
 
@@ -41,34 +41,25 @@ start: lda     ra          ; move past any spaces
        lbnz    good        ; jump if non-zero
        sep     scall       ; otherwise display usage
        dw      o_inmsg
-       db      'Usage: MemoryHog size, allocate memory block of <size> in the heap.',13,10,0
-       lbr     o_wrmboot   ; return to Elf/OS     
+       db      'Usage: mfree hhhh, deallocate memory block at hex address <hhhh> from the heap.',13,10,0
+       lbr     bye         ; return to Elf/OS     
 
 good:  ghi     ra          ; copy argument address to rf
        phi     rf
        glo     ra
        plo     rf
-       sep     scall       ; convert input to integer value
-       dw      f_atoi
+       sep     scall       ; convert input to hexadecimal value
+       dw      f_hexin
 
-       ghi     rd          ; RD contains the block size in bytes
-       phi     rc          ; Move size into RC for allocate
+       ghi     rd          ; RD contains the block address
+       phi     rf          ; Move address into RF to de-allocate
        glo     rd
-       plo     rc          ; load block size
-           
-       ldi     00H         ; no alignment 
-
-       phi     r7
-       ldi     04H         ; permanent allocation
-       plo     r7
-       sep     scall       ; allocate a block of memory
-       dw      o_alloc
-       bnf     okay        ; DF = 1 means allocation failed
+       plo     rf          ; load block address
        
-       sep     scall       ; display test message
-       dw      o_inmsg
-       db      'Allocation failed.',13,10,0
-okay:  lbr     o_wrmboot   ; return to Elf/OS       
+       sep     scall 
+       dw      o_dealloc
+           
+bye:   lbr     o_wrmboot   ; return to Elf/OS       
 ;----------------------------------------------------------------------------------------
                     
 ; define end of execution block

@@ -8,29 +8,6 @@ These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/
 
 Miscellaneous Elf/OS Utility Commands
 -------------------------------------
-## input
-**Usage:** input  
-Input and display data read from Port 4
-
-## output
-**Usage:** output *hh*     
-Send the hex value *hh* out to Port 4 *(where hh ranges in value from 00 to FF)*
-
-## nop
-**Usage:** nop    
-No Operation, a simple program that does nothing.
-
-## pwd
-**Usage:** pwd    
-Print Working Directory, write the current directory to the output.
-
-## say
-**Usage:** say *text*      
-Print the string *text* to the output.
-
-## stack
-**Usage:** stack    
-Print the value of the Elf/OS stack pointer.
 
 ## cmd
 **Usage:** cmd [-e] [*filename*, default = start.cmd]    
@@ -40,13 +17,48 @@ line of the file contains a separate command. The option -e will echo the comman
 **Note:** 
 To use *cmd* as the ELf/OS init program, copy this file as an executable file named *init* in the /bin directory. The Elf/OS will then execute the commands contained in the start.cmd file in the root / directory when the Elf/OS boots. *Press and hold Input /EF4 to skip the execution of start.cmd and auto-baud during boot-up.* 
 
+**Note:**
+The cmd program occupies memory from $5000 to $6000.  Programs up to 12K in size that load at $2000 can be run from a command file.  If a program allocates memory so that the heap goes below $6000, the command interpreter will exit with an 'Out of Memory' error. 
+
 ## cls
 **Usage:** cls    
 Clear the screen. *Clears both ANSI and non-ANSI displays.*
 
-## MemoryHog
-**Usage:** MemoryHog *size*    
-Allocate a block of memory of *size* bytes on the heap. *Used for testing low memory conditions.*
+## input
+**Usage:** input  
+Input and display data read from Port 4
+
+## malloc
+**Usage:** malloc [-f *hh*] *size*    
+Allocate a block of memory of *size* bytes on the heap. The -f option will fill the memory with the *hh* hex byte value. *Useful for testing low memory conditions.*
+
+## mfree
+**Usage:** mfree *hhhh*    
+Free a block of memory allocated at the hex address *hhhh* on the heap.
+
+## output
+**Usage:** output *hh*     
+Send the hex value *hh* out to Port 4 *(where hh ranges in value from 00 to FF)*
+
+## nop
+**Usage:** nop    
+No Operation, a simple program that does nothing. *Can be renamed to 'rem' and used for comments in command files*
+
+## pwd
+**Usage:** pwd    
+Print Working Directory, write the current directory to the output.
+
+## say
+**Usage:** say *text*      
+Print the string *text* to the output. *Useful for printing text output in command files*
+
+## stack
+**Usage:** stack    
+Print the value of the Elf/OS stack pointer.
+
+## xtrim
+**Usage:** xtrim *filename*, where *filename* is an executable file.  
+Trim the executable file *filename* to the runtime size in its header, and save with the .tr extension.  *Useful to remove padding bytes added by an XMODEM transfer* 
 
 STG NVR/RTC/UART and STG EPROM Utility Commands  
 -----------------------------------------------
@@ -94,7 +106,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the cmd, cls, input, output, nop, pwd, say, stack and MemoryHog commands. Extract these files with the Elf/OS command *lbr e misc_utils*
+* misc_utils.lbr - Library file for miscellaneous Elf/OS utilities contains the cmd, cls, input, malloc, mfree, output, nop, pwd, say, stack and xtrim commands. Extract these files with the Elf/OS command *lbr e misc_utils*
 * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
@@ -102,15 +114,17 @@ The command files are grouped into three Elf/OS library files that can be unpack
 Repository Contents
 -------------------
 * **/src/**  -- Source files for miscellaneous Elf/OS utilities.
+  * cmd.asm - Run commands from a file.
+  * cls.asm - Clear the screen
   * input.asm - Input and display data read from Port 4
+  * malloc.asm - Allocate block of memory on the heap.
+  * mfree.asm - Free a block of memory on the heap.
   * output.asm - Output hh - send the hex value 'hh' out to Port 4
   * nop.asm - No Operation - simple program that does nothing.
   * pwd.asm - Print Working Directory - prints the current directory
   * say.asm - Say 'text' - write the text string back to the output
   * stack.asm - Print the value of the Elf/OS stack pointer
-  * cmd.asm - Run commands from a file.
-  * cls.asm - Clear the screen
-  * MemoryHog.asm - Allocate block of memory from heap for testing.
+  * xtrim.asm - Trim an executable file to its runtime size.
   * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
