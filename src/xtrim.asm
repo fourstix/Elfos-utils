@@ -1,8 +1,7 @@
 ; -------------------------------------------------------------------
 ; Truncate an executable file to it's runtime size. Used to remove
-; padding bytes added by XMODEM transfer.
-;
-; Test 3: Eliminate copying fdes into R7, R8
+; padding bytes added by XMODEM transfer.  Trimmed file has the 
+; .tr extension added.
 ;
 ; Copyright 2021 by Gaston Williams
 ; -------------------------------------------------------------------
@@ -35,7 +34,7 @@ include    kernel.inc
 
       ; Build date
 date:       db      80H+8           ; Month, 80H offset means extended info
-            db      27              ; Day
+            db      28              ; Day
             dw      2021            ; Year
 
       ; Current build number
@@ -44,7 +43,24 @@ build:      dw      5
       ; Must end with 0 (null)
             db      'Copyright 2021 Gaston Williams',0
 
-start:      lda     ra                  ; move past any spaces
+start:      ldi     high k_ver          ; get pointer to kernel version
+            phi     rf
+            ldi     low k_ver
+            plo     rf
+
+            lda     rf                  ; if major is non-zero we are good
+            lbnz    setup
+
+            lda     rf                  ; if major is zero and minor is 4
+            smi     4                   ;  or higher we are good
+            lbdf    setup
+            
+            sep     scall               ; Show bad kernel message and exit
+            dw      o_inmsg
+            db      'Requires Elf/OS v0.4.0 or higher',13,10,0            
+            lbr     goodbye             ; show msg and exit
+
+setup:      lda     ra                  ; move past any spaces
             smi     ' '
             lbz     start
             
@@ -52,9 +68,12 @@ start:      lda     ra                  ; move past any spaces
             ldn     ra                  ; get character
             lbnz    good                ; jump if non-zero
           
-            sep     scall               ; otherwise display usage
+            sep     scall               ; otherwise display usage inforamtion
             dw      o_inmsg
-            db      'Usage: xtrim source',10,13,0
+            db      'Usage: xtrim filename, where filename is an executable file.',10,13,0
+            sep     scall
+            dw      o_inmsg
+            db      'Trim an executable file to header size and save with .tr extension.',10,13,0
             lbr     goodbye              ; and return to os
             
 good:       mov     rf,source           ; point to source filename
@@ -88,6 +107,17 @@ copy:       str     rd                  ; save character in destination filename
             inc     rd
             ldi     0                   ; end name string with a null
             str     rd
+
+            ; Set the allocation low memory value to $3000 to prevent
+            ; programs from allocating down into program buffers.           
+            
+            mov     rf, k_lowmem        ; Point RF to lowmem location in kernel
+ 
+            ldi     30h                 ; load lowmem with floor of $6000
+            str     rf                  ; Elf/OS will not allocate a block
+            inc     rf                  ; of memory below this floor value
+            ldi     00h 
+            str     rf
 
             mov     rf,source           ; point to source filename
             ldi     high fildes         ; get file descriptor
@@ -125,7 +155,7 @@ opendest:   mov     rf,dest             ; point to destination filename
             phi     rd
             ldi     low dfildes
             plo     rd        
-            ldi     3                   ; flags for open, create if nonexist
+            ldi     11                  ; flags for open, executable, create if nonexist
             plo     r7
             sep     scall               ; attempt to open file
             dw      o_open
