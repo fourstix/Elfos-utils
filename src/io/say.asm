@@ -4,8 +4,8 @@
 ; *******************************************************************************************
 
 #include  ops.inc
-#include   bios.inc
-#include   kernel.inc
+#include  bios.inc
+#include  kernel.inc
 
 ; ************************************************************
 ; This block generates the Execution header
@@ -20,12 +20,12 @@
                     br  start           ; Jump past build info to code
 
 ; Build information
-binfo:              db  80H+8           ; Month, 80H offset means extended info
-                    db  21              ; Day
+binfo:              db  80H+9           ; Month, 80H offset means extended info
+                    db  23              ; Day
                     dw  2021            ; Year
 
                     ; Current build number
-build:              dw  4
+build:              dw  5
 
                     ; Must end with 0 (null)
                     db  'Copyright 2021 Gaston Williams',0
