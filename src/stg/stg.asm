@@ -13,8 +13,9 @@
 ; *** without express written permission from the author.         ***
 ; *******************************************************************
 
-include bios.inc
-include kernel.inc
+#include ops.inc
+#include bios.inc
+#include kernel.inc
 
 ; ************************************************************
 ; ***** This block generates the 6 byte Execution header *****
@@ -30,14 +31,14 @@ include kernel.inc
         br      start           ; Jump past build information
 
         ; Build date
-date:   db      80H + 8         ; Month 80H offset means extended info
-        db      21              ; Day
+date:   db      80H + 9         ; Month 80H offset means extended info
+        db      23              ; Day
         dw      2021            ; Year
 
         ; Current build number
-build:  dw     4
-        ; Must end with 0 (null)
+build:  dw     5
 
+        ; Must end with 0 (null)
         db      'Copyright 2021 by Gaston Williams',0
 
 start:  lbr     8003H       ; jump to STG ROM routine

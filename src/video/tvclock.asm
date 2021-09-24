@@ -16,8 +16,9 @@
 ; *** without express written permission from the author.         ***
 ; *******************************************************************
 
-include    bios.inc
-include    kernel.inc
+#include ops.inc
+#include bios.inc
+#include kernel.inc
 
 ; ************************************************************
 ; This block generates the Execution header for a stand-alone
@@ -38,12 +39,12 @@ include    kernel.inc
 ; ***    No information text string              ***
 ; **************************************************
 ; Build date
-date:   db      80h+8          ; Month, 80h offset means extended info
-        db      21             ; Day
+date:   db      80h+9          ; Month, 80h offset means extended info
+        db      24             ; Day
         dw      2021           ; year = 2021
 
 ; Current build number
-build:  dw      4              ; build for kernel 4
+build:  dw      5              ; build for kernel 4
 
 ; Must end with 0 (null)
         db      0              ; No room for information string!
@@ -196,15 +197,16 @@ test:   bn4 test      ; wait for button express
         dec 2         ; put stack pointer back to original
         lbr o_wrmboot ; return to Elf/OS
 
-  org 20c5h                ;.. TIME COUNTERS AND DISPLAY BUFFER
-sten:  db 0E2h  ;.. MUST INITIALIZE
-secs:  db 0E2h  ;.. SECS:  #E2
+  org 20c5h           ;.. TIME COUNTERS AND DISPLAY BUFFER
+sten:  db 0E2h        ;.. MUST INITIALIZE
+secs:  db 0E2h        ;.. SECS:  #E2
 frct:  db 00h
-buff:     equ   $         ;.. EMPTY BUFFER
-
-  org 20cch
-brit: equ    $
-
-  org 20F8h
+buff:  db 0,0,0,0     ;.. EMPTY BUFFER
+       ;----   org 20cch
+brit: db 0,0,0,0
+      db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      db 0,0,0,0,0,0,0,0
+       ;---- org 20F8h
 bend: equ    $
 endrom:    equ     $               ; End of code

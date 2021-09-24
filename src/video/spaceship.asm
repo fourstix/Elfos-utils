@@ -17,8 +17,9 @@
 ; *** without express written permission from the author.         ***
 ; *******************************************************************
 
-include    bios.inc
-include    kernel.inc
+#include ops.inc
+#include bios.inc
+include  kernel.inc
 
 ; ************************************************************
 ; This block generates the Execution header for a stand-alone
@@ -39,10 +40,10 @@ include    kernel.inc
 ; ***    No information text string              ***
 ; **************************************************
 
-date:      db      80h+8   ; January
-           db      21      ; Day
+date:      db      80h+9   ; January
+           db      23      ; Day
            dw      2021    ; Year
-build:     dw      4       ; build for kernel 4
+build:     dw      5       ; build for kernel 4
            db      0       ; No room for information string!
 
 start:     ghi     r3            ; P=3, X=2 in Elf/OS
@@ -124,5 +125,6 @@ spaceship: db 00h, 00h,  00h,  00h,  00h,  00h,  00h,  00h
            db 00h, 00h,  30h,  00h,  3Fh,  0F0h, 00h,  00h
            db 00h, 00h,  18h,  0Fh,  0C0h, 00h,  00h,  00h
            db 00h, 00h,  07h,  0F0h, 00h,  00h,  00h,  00h
-
+           
+           ;------ define end of execution block
 endrom:    equ     $               ; End of code
