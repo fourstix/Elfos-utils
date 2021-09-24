@@ -13,9 +13,9 @@
 ; *** without express written permission from the author.         ***
 ; *******************************************************************
 
-
-include bios.inc
-include kernel.inc
+#include ops.inc
+#include bios.inc
+#include kernel.inc
 
 ; ************************************************************
 ; This block generates the Execution header
@@ -30,37 +30,26 @@ include kernel.inc
         br      start           ; Jump past build information
 
         ; Build date
-date:   db      80H+8           ; Month, 80H offset means extended info
-        db      21              ; Day
+date:   db      80H+9           ; Month, 80H offset means extended info
+        db      22              ; Day
         dw      2021            ; Year
 
         ; Current build number
-build:  dw      4
+build:  dw      5
 
         ; Must end with 0 (null)
         db      'Copyright 2021 Gaston Williams',0
 
 start:  inp     4                   ; input data from Port 4
         plo     rd                  ; put data byte into rd for conversion
+        
+        LOAD    rf, buffer          ; Set up rf to point to a buffer
+        CALL    f_hexout2           ; convert to 2 char ASCII
 
-        ldi     high buffer         ; Set up rf to point to a buffer
-        phi     rf
-        ldi     low buffer
-        plo     rf
+        LOAD    rf, buffer          ; Set up rf to point to a buffer
+        CALL    o_msg               ; output text value
 
-        sep     scall               ; convert to 2 char ASCII
-        dw      f_hexout2
-
-        ldi     high buffer         ; Set up rf to point to a buffer
-        phi     rf
-        ldi     low buffer
-        plo     rf
-
-        sep     scall               ; output text value
-        dw      o_msg
-
-
-        sep     sret                ; return to Elf/OS
+        RETURN                      ; return to Elf/OS
 
 buffer: db  0,0,0,0                 ; 2 char hex value
         ;------ define end of execution block

@@ -3,8 +3,9 @@
 ; Copyright (c) 2021 by Gaston Williams
 ; *******************************************************************************************
 
-include   bios.inc
-include   kernel.inc
+#include  ops.inc
+#include   bios.inc
+#include   kernel.inc
 
 ; ************************************************************
 ; This block generates the Execution header
@@ -33,30 +34,19 @@ build:              dw  4
 ; Main
 ; =========================================================================================
 
-start:              lda  ra                 ; move past any spaces
-                    smi  ' '
-                    bz   start
-                    dec  ra                 ; move back to non-space character
-                    ldn  ra                 ; check for nonzero byte
-                    bnz  good               ; jump if non-zero
-                    ldi  high usage         ; get error message
-                    phi  rf
-                    ldi  low usage
-                    plo  rf
-                    sep  scall              ; otherwise display
-                    dw   o_msg              ; usage message and
-                    ;sep  sret               ; return to Elf/OS
-                    lbr  o_wrmboot          ; return to Elf/OS
-                          
-good:               ghi  ra                 ; copy RA to RF
-                    phi  rf
-                    glo  ra
-                    plo  rf
-         
-                    sep  scall             ; display
-                    dw   o_msg             ; text message and            
-                    ; sep  sret              ; return to Elf/OS
-                    lbr  o_wrmboot          ; return to Elf/OS
+start:              lda   ra                ; move past any spaces
+                    smi   ' '
+                    bz    start
+                    dec   ra                ; move back to non-space character
+                    ldn   ra                ; check for nonzero byte
+                    bnz   good              ; jump if non-zero
+                    LOAD  rf, usage         ; display usage message
+                    CALL  o_msg             ; otherwise display
+                    RETURN                  ; return to Elf/OS
+                              
+good:               COPY  ra, rf            ; copy RA to RF
+                    CALL  o_msg             ; display text message
+                    RETURN                  ; return to Elf/OS
                         
 usage:              db   'Usage: say text',10,13,0 
                         
