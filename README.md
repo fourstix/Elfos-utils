@@ -6,7 +6,7 @@ Platform
 --------
 These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.12](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v112%20BIOS%201.0.9.zip) written by Bob Armstrong. A lot of information and software for the Pico/Elf can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
-File Elf/OS Utility Commands
+Elf/OS File Utility Commands
 -------------------------------------
 
 ## cmd
@@ -45,7 +45,7 @@ over-write an existing file without the prompt. *Copy or rename to 'copy' to rep
 **Usage:** xtrim *filename*, where *filename* is an executable file.  
 Trim the executable file *filename* to the runtime size in its header, and save with the .tr extension.  *Useful to remove padding bytes added by an XMODEM transfer* 
 
-I/O Elf/OS Utility Commands
+Elf/OS I/O Utility Commands
 -------------------------------------
 
 ## clr
@@ -62,7 +62,7 @@ Send the hex value *hh* out to Port 4 *(where hh ranges in value from 00 to FF)*
 
 ## nop
 **Usage:** nop    
-No Operation, a simple program that does nothing. *Can be renamed to 'rem' in the /bin directory and used for comments in command files*
+No Operation, a simple program that does nothing. *Can be copied or renamed to 'rem' in the /bin directory and used for comments in command files*
 
 ## pwd
 **Usage:** pwd    
@@ -87,7 +87,7 @@ Set Q.  This command turns the Q bit on. (Q = 1) The Q bit is available for use 
 **Usage:** req  
 Reset Q.  This command turns the Q bit off. (Q = 0) The Q bit is available for use when using the STG NVR/RTC/UART Expansion Card UART.
 
-## stg  
+## stg
 **Usage:** stg    
 Jump to the STG Pico/Elf EPROM v1.12 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the EPROM menu.
 
@@ -123,7 +123,7 @@ Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
 * file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, malloc, mfree and xtrim commands. Extract these files with the Elf/OS command *lbr e file_utils*
-* io_utils.lbr - Library file for I/O Elf/OS utilities containing the clr, input, nop, output, pwd, say, and stack commands. Extract these files with the Elf/OS command *lbr e io_utils*
+* io_utils.lbr - Library file for Elf/OS I/O utilities containing the clr, input, nop, output, pwd, say, and stack commands. Extract these files with the Elf/OS command *lbr e io_utils*
 * stg_utils.lbr - Library file for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
@@ -132,7 +132,7 @@ Repository Contents
 -------------------
 * **/src/**  -- Common source files for assembling Elf/OS utilities.
   * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
-  * ops.inc - OpCode definitions for Asm/02.
+  * ops.inc - Opcode definitions for Asm/02.
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
 * **/src/file/**  -- Source files for Elf/OS file utilities.
@@ -175,7 +175,7 @@ Repository Contents
   License Information
   -------------------
   
-  This code is public domain under the MIT License, but please buy me a beer
+  This code is public domain under the MIT License, but please buy me a beverage
   if you use this and we meet someday (Beerware).
   
   References to any products, programs or services do not imply
