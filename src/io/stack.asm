@@ -36,12 +36,19 @@ date:   db      80H + 9         ; Month 80H offset means extended info
         dw      2021            ; Year
 
         ; Current build number
-build:  dw     5
-
+build:  dw      5
         ; Must end with 0 (null)
-        db      'Copyright 2021 by Gaston Williams',0
 
-start:  lbr     8003H       ; jump to STG ROM routine
+        db      'Copyright 2021 by Gaston Williams',0
+            
+start:  COPY    r2, rd              
+        LOAD    rf, buffer          ; point to output buffer
+        CALL    f_hexout4           ; convert address to ASCII hex
+        LOAD    rf, buffer          ; point to output buffer
+        CALL    o_msg               ; and display it
+        RETURN                      ; return to Elf/OS
+           
+buffer:    db      0,0,0,0,10,13,0
 
         ;------ define end of execution block
 endrom: equ     $

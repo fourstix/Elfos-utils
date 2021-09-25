@@ -10,8 +10,9 @@
 ; *** without express written permission from the author.         ***
 ; *******************************************************************
 
-include    bios.inc
-include    kernel.inc
+#include ops.inc
+#include    bios.inc
+#include    kernel.inc
 
 #define V2 0C200h
 #define V2DATA 07f00h
@@ -30,17 +31,17 @@ include    kernel.inc
            br      start            ; Jump past build information
        
        ; Build date
-date:      db      80H+8            ; Month 80H offset means extended info
-           db      21               ; Day
+date:      db      80H+9            ; Month 80H offset means extended info
+           db      24               ; Day
            dw      2021             ; Year
            
        ; Current build number
-build:     dw      4                ; build for kernel 4
+build:     dw      5                ; build for kernel 4
 
                                     ; Must end with 0 (null)
            db      'Copyright 2021 by Gaston Williams',0
 
-start:     mov     rf,0C220h        ; need to check signature in STG ROM
+start:     LOAD    rf, 0C220h       ; need to check signature in STG ROM
            lda     rf               ; looking for 0,ADC,0
            lbnz    bad              ; if any portion is missing, error
            lda     rf
@@ -57,56 +58,39 @@ start:     mov     rf,0C220h        ; need to check signature in STG ROM
            lbnz    bad
            lda     rf
            lbz     go
-bad:       sep     scall               ; Visual/02 not present, display error
-           dw      o_inmsg
+bad:       CALL    o_inmsg           ; Visual/02 not present, display error
            db      'Visual/02 is not present in ROM.  Aborting.',10,13,0
            lbr     o_wrmboot
+           
 go:        ldn     ra                  ; see if argument provided
            lbz     V2+3                ; jump immediately to visual/02 if none
-           ghi     ra                  ; copy argument address to rf
-           phi     rf
-           glo     ra
-           plo     rf
+           COPY    ra, rf              ; copy argument address to rf
+
 loop1:     lda     rf                  ; look for first less <= space
            smi     33
            bdf     loop1
            dec     rf                  ; backup to char
            ldi     0                   ; need proper termination
            str     rf
-           ghi     ra                  ; back to beginning of name
-           phi     rf
-           glo     ra
-           plo     rf
-           ldi     high fildes         ; get file descriptor
-           phi     rd
-           ldi     low fildes
-           plo     rd
+           COPY    ra, rf              ; back to beginning of name
+  
+           LOAD    rd, fildes          ; get file descriptor
+  
            ldi     0                   ; flags for open
            plo     r7
-           sep     scall               ; attempt to open file
-           dw      o_open
+           
+           CALL    o_open              ; attempt to open file
            bnf     opened              ; jump if file was opened
-           ldi     high errmsg         ; get error message
-           phi     rf
-           ldi     low errmsg
-           plo     rf
-           sep     scall               ; display it
-           dw      o_msg
+           
+           LOAD    rf, errmsg          ; get error message
+           CALL    o_msg               ; display it      
            lbr     o_wrmboot           ; and return to os
-opened:    ldi     high buffer         ; buffer to rettrieve data
-           phi     rf
-           ldi     low buffer
-           plo     rf
-           ldi     0                   ; need to read 6 byte header
-           phi     rc
-           ldi     6
-           plo     rc
-           sep     scall               ; read the header
-           dw      o_read
-           ldi     high buffer         ; point to header
-           phi     r9
-           ldi     low buffer
-           plo     r9
+
+opened:    LOAD    rf, buffer          ; buffer to retrieve data    
+           LOAD    rc, 6               ; need to read 6 byte header           
+           CALL    o_read              ; read the header
+
+           LOAD    r9, buffer          ; point to header
            lda     r9                  ; get load address
            phi     rf
            lda     r9
@@ -118,7 +102,7 @@ opened:    ldi     high buffer         ; buffer to rettrieve data
            lda     r9                  ; get start address
            phi     r7
            lda     r9
-           plo     r9
+           plo     r7
            ldi     V2DATA.1
            phi     r8
            ldi     6
@@ -128,10 +112,9 @@ opened:    ldi     high buffer         ; buffer to rettrieve data
            inc     r8
            glo     r7
            str     r8
-           sep     scall               ; read rest of file
-           dw      o_read
-           sep     scall               ; close the file
-           dw      o_close
+           CALL    o_read              ; read rest of file
+           CALL    o_close             ; close the file
+      
            ldi     V2DATA.1
            phi     r8
            ldi     4                   ; point to R2

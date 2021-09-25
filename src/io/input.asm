@@ -1,5 +1,5 @@
 ; -------------------------------------------------------------------
-; Simple program to exit the Elf/OS and return to the STG ROM
+; Input a data byte from port 4
 ; Copyright 2021 by Gaston Williams
 ; -------------------------------------------------------------------
 ; Based on software written by Michael H Riley
@@ -18,30 +18,39 @@
 #include kernel.inc
 
 ; ************************************************************
-; ***** This block generates the 6 byte Execution header *****
-;
+; This block generates the Execution header
+; It occurs 6 bytes before the program start.
 ; ************************************************************
-; The Execution header starts 6 bytes before the program start
       org     02000h-6          ; Header starts at 01ffah
         dw      02000h          ; Program load address
         dw      endrom-2000h    ; Program size
         dw      02000h          ; Program execution address
 
-      org     2000h             ; Program code begins here
+      org     02000h            ; Program code starts here
         br      start           ; Jump past build information
 
         ; Build date
-date:   db      80H + 9         ; Month 80H offset means extended info
-        db      23              ; Day
+date:   db      80H+9           ; Month, 80H offset means extended info
+        db      22              ; Day
         dw      2021            ; Year
 
         ; Current build number
-build:  dw     5
+build:  dw      5
 
         ; Must end with 0 (null)
-        db      'Copyright 2021 by Gaston Williams',0
+        db      'Copyright 2021 Gaston Williams',0
 
-start:  lbr     8003H       ; jump to STG ROM routine
+start:  inp     4                   ; input data from Port 4
+        plo     rd                  ; put data byte into rd for conversion
+        
+        LOAD    rf, buffer          ; Set up rf to point to a buffer
+        CALL    f_hexout2           ; convert to 2 char ASCII
 
+        LOAD    rf, buffer          ; Set up rf to point to a buffer
+        CALL    o_msg               ; output text value
+
+        RETURN                      ; return to Elf/OS
+
+buffer: db  0,0,0,0                 ; 2 char hex value
         ;------ define end of execution block
 endrom: equ     $

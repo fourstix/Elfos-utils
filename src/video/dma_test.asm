@@ -18,8 +18,9 @@
 ; *** without express written permission from the author.         ***
 ; *******************************************************************
 
-include    bios.inc
-include    kernel.inc
+#include ops.inc
+#include bios.inc
+#include kernel.inc
 
 ; ************************************************************
 ; This block generates the Execution header for a stand-alone
@@ -33,14 +34,15 @@ include    kernel.inc
 
          org     2000h          ; Program code starts at 2000
            br      start
+           
 ; **************************************************
 ; *** Build information:                         ***
 ; **************************************************
-date:      db      80h+8  ; Month
-           db      21     ; Day
+date:      db      80h+9  ; Month
+           db      23     ; Day
            dw      2021   ; Year
 
-build:     dw      4      ; build for kernel 4
+build:     dw      5      
 
            db      'Copyright 2021 Gaston Williams',0
 
@@ -55,10 +57,13 @@ start:     ldi 023H ; value for x=2; p=3
            glo r0   ; set up DMA pointer
 
 Video:     inp 1    ; turn video on
+
            ;------------ DMA occurs here ------------
+
 loop:      ldi 080H ; fix r0
            plo r0
            bn4 loop ; continue until input pressed
+
            ; Leave interrupts disabled
            out 1    ; turn off Video
            lbr     o_wrmboot       ; return to Elf/OS
@@ -68,5 +73,6 @@ loop:      ldi 080H ; fix r0
 ; data for video dma
 buffer: db 080H, 081H, 082H, 083H, 084H, 085H, 086H, 087H
         db 088H, 089H, 08AH, 08BH, 08CH, 08DH, 08EH, 08FH
-
-endrom:    equ     $               ; End of code
+          
+          ;------ define end of execution block  
+endrom:   equ     $               ; End of code
