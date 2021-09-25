@@ -26,7 +26,7 @@ Show the Elf/OS flags associated with the file. Display 'd' for a directory file
 
 ## header
 **Usage:** header *filename*    
-Show the executable header information for a file. Display the program load address, program size and the program execution address.
+Show the executable header information for a file to display the program load address, program size and the program execution address.
 
 ## malloc
 **Usage:** malloc [-f *hh*] *size*    
@@ -39,7 +39,7 @@ Free a block of memory allocated at the hex address *hhhh* on the heap.
 ## scpy
 **Usage:** scpy [-y] *source* *dest*    
 Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will 
-over-write an existing file without the prompt. *Copy or rename to 'copy' to replace default Elf/OS command in the /bin directory.*
+over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*
 
 ## xtrim
 **Usage:** xtrim *filename*, where *filename* is an executable file.  
