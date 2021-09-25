@@ -127,6 +127,15 @@ The command files are grouped into three Elf/OS library files that can be unpack
 * stg_utils.lbr - Library file for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
+Help Files
+-------------
+The utils.lbr file provides help information for the Elf/OS utilities.  Although this file has the 
+same format as an Elf/OS library, do not use the lbr command to unpack it.  Instead copy this file,
+as is, into the /hlp directory with the other help libraries.  The *help* command will extract information from this file.
+
+The help information for an individual command can be displayed by typing *help utils:name*, where name is the name of the utility command.  For example to show the help information for *cmd*, type in *help utils:cmd*.
+
+The command *help utils:* (note that it ends with a colon) will list all the utility programs with help information.  
 
 Repository Contents
 -------------------
@@ -171,6 +180,8 @@ Repository Contents
   * io_utils.lbr - Library file for Elf/OS I/O utilities.
   * stg_utils.lbr - Library file  for STG NVR/RTC/UART and STG EPROM utilities.
   * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities.
+* **/hlp/**  -- Help file for Elf/OS utilities. (Used with Elf/OS help command)
+  * utils.lbr - Help file for Elf/OS file utilities. (Do not unpack with lbr, instead copy into /hlp directory.)  
   
   License Information
   -------------------
