@@ -126,7 +126,7 @@ Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
 * file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, malloc, mfree and xtrim commands. Extract these files with the Elf/OS command *lbr e file_utils*
-* io_utils.lbr - Library file for Elf/OS I/O utilities containing the clr, input, nop, output, pwd, say, and stack commands. Extract these files with the Elf/OS command *lbr e io_utils*
+* io_utils.lbr - Library file for Elf/OS I/O utilities containing the clr, input, nop, output, pause, pwd, say, and stack commands. Extract these files with the Elf/OS command *lbr e io_utils*
 * stg_utils.lbr - Library file for STG NVR/RTC/UART and STG EPROM utilities contains the stg, videostg,  xsb, seq and req commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 * video_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e video_utils*
 
@@ -158,8 +158,9 @@ Repository Contents
 * **/src/io/**  -- Source files for Elf/OS I/O utilities.  
   * cls.asm - Clear the screen
   * input.asm - Input and display data read from Port 4
-  * nop.asm - No Operation - simple program that does nothing.
+  * nop.asm - No Operation - simple program that does nothing
   * output.asm - Output hh - send the hex value 'hh' out to Port 4
+  * pause.asm - Display a prompt and wait for input
   * pwd.asm - Print Working Directory - prints the current directory
   * say.asm - Say 'text' - write the text string back to the output
   * stack.asm - Print the value of the Elf/OS stack pointer
