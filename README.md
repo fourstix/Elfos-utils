@@ -38,8 +38,7 @@ Free a block of memory allocated at the hex address *hhhh* on the heap.
 
 ## scpy
 **Usage:** scpy [-y] *source* *dest*    
-Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will 
-over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*
+Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*
 
 ## xtrim
 **Usage:** xtrim *filename*, where *filename* is an executable file.  
@@ -63,6 +62,10 @@ Send the hex value *hh* out to Port 4 *(where hh ranges in value from 00 to FF)*
 ## nop
 **Usage:** nop    
 No Operation, a simple program that does nothing. *Can be copied or renamed to 'rem' in the /bin directory and used for comments in command files*
+
+## pause
+**Usage:** pause [-0|-1|-2|-3|-4, default = -4]  
+Display a prompt *Press Input to continue...* and wait for Input to return.  The options -1,-2,-3 or -4 will wait for input on the /EFn line.  The option -0 will wait for serial input. The default is to wait for Input on /EF4.
 
 ## pwd
 **Usage:** pwd    
