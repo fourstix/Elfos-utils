@@ -58,9 +58,9 @@ start:  ghi r3        ;INITIALIZE R0, R1
         phi r1
         ldi low ints  ; .. R1 = INTERRUPT PC
         plo r1
-        ldi 23h       ; x=2, p=3
-        str r2        ; r2 is stack ptr in Elf/OS
+        sex r3        ; Thanks to David Madole for fix 
         ret           ; turn on interrupts
+        db 23H        ; x=2, p=3
 main:   inp 1         ; TURN ON TV
         br test       ; check for button press
 
@@ -113,7 +113,7 @@ rept:   dec r7        ;.. COUNTER RASTERS
                 ;
                 ; SECONDS CLOCK
                 ;
-        ghi r0
+        ghi r3          ; Thanks to David Madole for fix
         phi r7
         ldi low frct    ;.. POINT TO FRAME COUNT
         plo r7          ;.. R7 IS AVAILABLE
