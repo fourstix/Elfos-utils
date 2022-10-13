@@ -2,6 +2,10 @@
 A set of simple utility commands for the Elf/OS.  These commands were all assembled into 1802 binary files using the 
 [Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
 
+XSB Utility  
+-----------
+If you are looking for the latest version of the XSB utility, it can be find [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin).
+
 Platform  
 --------
 These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.12](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v112%20BIOS%201.0.9.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
