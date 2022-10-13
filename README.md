@@ -4,7 +4,7 @@ A set of simple utility commands for the Elf/OS.  These commands were all assemb
 
 XSB Utility  
 -----------
-If you are looking for the latest version of the XSB utility, it can be find [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin).
+If you are looking for the latest version of the XSB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin).
 
 Platform  
 --------
