@@ -158,6 +158,11 @@ The help information for an individual command can be displayed by typing *help 
 
 The command *help utils:* (note that it ends with a colon) will list all the utility programs with help information.  
 
+Other documentation
+-------------------
+The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip
+file archive of this website in the /docs/ directory.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
+
 Repository Contents
 -------------------
 * **/src/**  -- Common source files for assembling Elf/OS utilities.
@@ -209,6 +214,8 @@ Repository Contents
   * sys_utils.lbr - Library file for Elf/OS system utilities.
 * **/hlp/**  -- Help file for Elf/OS utilities. (Used with Elf/OS help command)
   * utils.lbr - Help file for Elf/OS file utilities. (Do not unpack with lbr, instead copy into /hlp directory.)  
+* **/docs/**  -- Other Elf/OS documentation.
+  * elf-emulation.com.zip - Zip archive file for Elf-Emulation.com website.
   
   License Information
   -------------------
