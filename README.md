@@ -161,7 +161,7 @@ The command *help utils:* (note that it ends with a colon) will list all the uti
 Other documentation
 -------------------
 The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip
-file archive of this website in the /docs/ directory.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
+file archive of this website available here in the docs subfolder.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
 
 Repository Contents
 -------------------
