@@ -76,9 +76,18 @@ Print the value of the Elf/OS stack pointer.
 Elf/OS I/O Utility Commands
 -------------------------------------
 
+## about
+**Usage:** about    
+Show information about the current drive. Write the contents of the file /cfg/about.nfo to the output
+to show information about the disk in the current drive.
+
 ## clr
 **Usage:** clr    
 Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*
+
+## drive
+**Usage:** drive    
+Write the current drive number to the output.
 
 ## input
 **Usage:** input  
@@ -144,7 +153,7 @@ Library Files
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
 * file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, scpy, xtrim and xsb commands. Extract these files with the Elf/OS command *lbr e file_utils*
 * sys_utils.lbr - Library file for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
-* io_utils.lbr - Library file for Elf/OS I/O utilities containing the clr, input, nop, output, pause, pwd, say and up commands. Extract these files with the Elf/OS command *lbr e io_utils*
+* io_utils.lbr - Library file for Elf/OS I/O utilities containing the about, clr, drive, input, nop, output, pause, pwd, say and up commands. Extract these files with the Elf/OS command *lbr e io_utils*
 * pixie_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e pixie_utils*
 * stg_utils.lbr - Library file for the STG EPROM utilities containing the stg and videostg commands. Extract these files with the Elf/OS command *lbr e stg_utils*
 
@@ -178,7 +187,9 @@ Repository Contents
   * xtrim.asm - Trim an executable file to its runtime size.
   * xsb.asm - XMODEM Send using the hardware UART  
 * **/src/io/**  -- Source files for Elf/OS I/O utilities.  
+  * about.asm - Show information about the current drive
   * clr.asm - Clear the screen
+  * drive.asm - Print the current drive number
   * input.asm - Input and display data read from Port 4
   * nop.asm - No Operation - simple program that does nothing
   * output.asm - Output hh - send the hex value 'hh' out to Port 4

@@ -33,15 +33,15 @@ d_ideread:  equ    0447h
             br      start
 
             ; Build date
-date:       db      80h+9,         ; Month, 80h offset means extended info
-            db      20             ; Day
-            dw      2021           ; year
+date:       db      80h+1,         ; Month, 80h offset means extended info
+            db      13             ; Day
+            dw      2023           ; year
            
             ; Current build number
-build:      dw      5              ; build
+build:      dw      7              ; build
 
             ; Must end with 0 (null)
-            db      'Copyright 2021 Gaston Williams',0
+            db      'Copyright 2023 Gaston Williams',0
 
 start:      lda     ra                  ; move past any spaces
             smi     ' '
@@ -58,12 +58,17 @@ start1:     COPY    ra, rf              ; copy argument address to rf
 loop1:      lda     ra                  ; look for first less <= space
             smi     33
             lbdf    loop1
-            dec     ra                  ; backup to char
-            ldi     0                   ; need proper termination
+            dec     ra                  ; backup to previous char
+            dec     ra                  ; back up to trailing character
+            lda     ra                  ; check for trailing slash
+            smi     '/'                 ; remove trailing slash for dir file name
+            lbnz    end_ln              ; any other character is okay
+            dec     ra                  ; move back one character             
+end_ln:     ldi     0                   ; need proper termination
             str     ra
             LOAD    rd, fildes          ; get file descriptor
            
-            LOAD    r7, 0h              ; no special flags          
+            LOAD    r7, 10h             ; open a directory or a file          
             CALL    o_open              ; attempt to open file
             lbnf    opened              ; jump if file opened
 

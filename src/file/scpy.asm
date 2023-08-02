@@ -23,12 +23,12 @@
           br      start           ; Jump past build information
 
         ; Build date
-date:     db      80H+9           ; Month, 80H offset means extended info
-          db      24              ; Day
-          dw      2021            ; Year
+date:     db      80H+1           ; Month, 80H offset means extended info
+          db      14              ; Day
+          dw      2023            ; Year
 
         ; Current build number
-build:    dw      5
+build:    dw      7
         ; Must end with 0 (null)
           db      'Copyright 2021 Gaston Williams',0
 
@@ -111,7 +111,7 @@ good6:    ldi     0                   ; need terminator
 
           CALL    o_inmsg
           db      'File not found',10,13,0
-          lbr     o_wrmboot           ; and return to os
+          lbr     err_exit            ; and return to os
 
 opened:   LOAD    rf, flags           ; check for directory
           ldn     rf                  ; get flag byte from fildes 
@@ -122,7 +122,7 @@ opened:   LOAD    rf, flags           ; check for directory
           db      'Source cannot be a directory.',10,13,0 
 
           CALL    o_close             ; close source file and exit
-          lbr     o_wrmboot           ; and exit
+          lbr     err_exit            ; and exit
              
 cont:     COPY    rd, r7              ; make copy of descriptor
 
@@ -132,7 +132,7 @@ cont:     COPY    rd, r7              ; make copy of descriptor
           LOAD    r7, 0h              ; flags for open, don't create
 
           CALL    o_open              ; attempt to open file       
-          lbdf    create              ; DF = 1 -> no such file, reopen to create
+          lbdf    reopen              ; DF = 1 -> no such file, reopen to create
 
           LOAD    rf, dflags          ; check destination flags  
           ldn     rf                  ; get the destination flag byte
@@ -156,14 +156,16 @@ dupe:     LOAD    rf, noprompt        ; get no prompt flag
           LOAD    rf, buffer          ; check response             
           ldn     rf                  ; Is first character 'y' or not?
           smi     'Y'                 ; 'Y' is a positive response
-          bz      reopen              ; reopen file if positive respone
+          lbz     reopen              ; reopen file if positive response
           smi     20h                 ; 'y' is 32 less than 'Y' 
           lbz     reopen              ; reopen if positive, otherwise quit
 
 abend:    CALL    o_close             ; close destination
           POP     rd                  ; recover source descriptor
           CALL    o_close             ; close source
-          lbr     o_wrmboot           ; exit to Elf/OS
+err_exit: ldi     0ffh                ; set retval for error code
+          shl                         ; set df true for error
+          RETURN                      ; exit to Elf/OS (DF = 1, D = FE)
 
 reopen:   CALL    o_close             ; close and reopen file to overwrite                        
 
