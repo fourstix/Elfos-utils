@@ -19,6 +19,8 @@
 #include    bios.inc
 #include    kernel.inc
 
+d_dirent:   equ    037Bh
+
 ; ************************************************************
 ; This block generates the Execution header
 ; It occurs 6 bytes before the program start.
@@ -32,15 +34,15 @@
             br      start           ; Jump past build information
 
       ; Build date
-date:       db      80H+9           ; Month, 80H offset means extended info
-            db      23              ; Day
-            dw      2021            ; Year
+date:       db      80H+1           ; Month, 80H offset means extended info
+            db       1              ; Day
+            dw      2024            ; Year
 
       ; Current build number
-build:      dw      5
+build:      dw      6
 
       ; Must end with 0 (null)
-            db      'Copyright 2021 Gaston Williams',0
+            db      'Copyright 2024 Gaston Williams',0
 
 start:      lda     ra                ; move past any spaces
             smi     ' '
@@ -52,34 +54,42 @@ start:      lda     ra                ; move past any spaces
           
             CALL    o_inmsg           ; otherwise display usage information
             db      'Usage: header filename, where filename is an executable file.',10,13,0
-            lbr     goodbye           ; and return to os
+            return                    ; and return to os
             
-good:       COPY    ra, rf        ; point to source filename
-            LOAD    rd, fildes        ; get file descriptor
-            ldi     0                 ; flags for open
+good:       COPY    ra, rf            ; point to source filename
+            copy    rf, rd            ; save filename
+            call    d_dirent          ; get the dirent
+            lbdf    file_err          ; if we can't get a dirent, show error msg
+
+            glo     ra                ; ra points to dirent
+            adi      6                ; flag byte is byte 6 in dirent
+            plo     ra
+            ghi     ra                ; adjust high byte for carry flag
+            adci     0
+            ldn     ra                ; ra points to flag byte
+            ani     02h               ; check executable bit
+            lbnz    okay              ; show warning if not executable file 
+
+            CALL    o_inmsg           ; Warn if not executable
+            db      'Non-executable file may not have a valid header.',13,10,0
+            
+okay:       copy    rd, rf            ; restore filename to rf
+            LOAD    rd, fildes        ; set file descriptor
+            ldi     0                 ; set flags for open
             plo     r7
     
             CALL    o_open            ; attempt to open file          
             lbnf    opened            ; jump if file was opened
   
-            LOAD    rf, errmsg        ; get error message
+file_err:   LOAD    rf, errmsg        ; get error message
             CALL    o_msg             ; display it
-            lbr     goodbye           ; and return to os
-
-opened:     LOAD    rf, flags         ; check for executable
-            ldn     rf                ; get the flag byte from file descriptor
-            ani     040h              ; Test executable bit is set
-            lbnz    read_hdr          ; if executable file, continue on
+            ABEND                     ; return with error code       
             
-            CALL    o_inmsg           ; Warn if not executable
-            db      'Non-executable file may not have a valid header.',13,10,0
-                        
-            
-read_hdr:   LOAD    rc, 6             ; want to read 6 bytes
-            LOAD    rf, header        ; buffer to for header
+opened:     LOAD    rc, 6             ; want to read 6 bytes
+            LOAD    rf, header        ; buffer for header bytes
             LOAD    rd, fildes        ; get file descriptor
             CALL    o_read            ; read the header
-            lbdf    showerr           ; DF = 1 means read error
+            lbdf    read_err          ; DF = 1 means read error
             CALL    o_close           ; close files after reading header bytes
           
             LOAD    rf, header        ; point rf at header
@@ -136,9 +146,10 @@ read_hdr:   LOAD    rc, 6             ; want to read 6 bytes
             
             RETURN                    ; finished if no errors
 
-showerr:    CALL    o_inmsg           ; otherwise display error
-            db      'File write error',10,13,0
-goodbye:    lbr     o_wrmboot  
+read_err:   CALL    o_close           ; attempt to close after error
+            CALL    o_inmsg           ; display error
+            db      'Unable to read header.',10,13,0
+            ABEND
             
 ; -------------------------------------------------------------------          
 errmsg:     db      'File not found',10,13,0

@@ -21,6 +21,10 @@
 #include    bios.inc
 #include    kernel.inc
 
+
+d_dirent:   equ    037Bh
+
+
 ; ************************************************************
 ; This block generates the Execution header
 ; It occurs 6 bytes before the program start.
@@ -34,30 +38,17 @@
             br      start           ; Jump past build information
 
       ; Build date
-date:       db      80H+9           ; Month, 80H offset means extended info
-            db      23              ; Day
-            dw      2021            ; Year
+date:       db      80H+1           ; Month, 80H offset means extended info
+            db       1              ; Day
+            dw      2024            ; Year
 
       ; Current build number
-build:      dw      5
+build:      dw      6
 
       ; Must end with 0 (null)
-            db      'Copyright 2021 Gaston Williams',0
+            db      'Copyright 2024 Gaston Williams',0
 
-start:      LOAD    rf, k_ver         ; get pointer to kernel version
-
-            lda     rf                ; if major is non-zero we are good
-            lbnz    setup
-
-            lda     rf                ; if major is zero and minor is 4
-            smi     4                 ;  or higher we are good
-            lbdf    setup
-            
-            CALL    o_inmsg           ; Show bad kernel message and exit     
-            db      'Requires Elf/OS v0.4.0 or higher',13,10,0            
-            lbr     goodbye           ; show msg and exit
-
-setup:      lda     ra                ; move past any spaces
+start:      lda     ra                ; move past any spaces
             smi     ' '
             lbz     start
             
@@ -69,7 +60,7 @@ setup:      lda     ra                ; move past any spaces
             db      'Usage: xtrim filename, where filename is an executable file.',10,13,0
             CALL    o_inmsg
             db      'Trim an executable file to header size and save with .tr extension.',10,13,0
-            lbr     goodbye           ; and return to os
+            return                    ; and return to os
             
 good:       LOAD    rf, source        ; point to source filename
 good1:      lda     ra                ; get byte from argument
@@ -114,29 +105,44 @@ copy:       str     rd                ; save character in destination filename
             ldi     00h 
             str     rf
 
+            ;---- check for executable file
             LOAD    rf, source        ; point to source filename
+            call    d_dirent            ; get the directory entry  
+            lbnf    dirent              ; jump if directory entry open
+
+            LOAD    rf, errmsg          ; show error message
+            CALL    o_msg
+            ABEND                       ; exit with error
+            
+dirent:     glo     ra                  ; ra points to dirent
+            adi      6                  ; flags byte is byte 6 in Dirent
+            plo     ra
+            ghi     ra                  ; add carry flag to high byte
+            adci     0                    
+            phi     ra                  ; rd now points to flag byte
+            
+            ldn     ra                  ; get flags from dirent
+            ani     02h                 ; check directory bit
+
+            lbnz    open_src
+            LOAD    rf, errmsg3       ; show error message
+            CALL    o_msg
+            ABEND                     ; exit with error
+
+open_src:   LOAD    rf, source        ; point to source filename
             LOAD    rd, fildes        ; get file descriptor
             ldi     0                 ; flags for open
             plo     r7
     
             CALL    o_open            ; attempt to open file          
-            lbnf    opened            ; jump if file was opened
+            lbnf    opened1            ; jump if file was opened
   
             LOAD    rf, errmsg        ; get error message
             CALL    o_msg             ; display it
-            lbr     goodbye           ; and return to os
+            ABEND                     ; and return to os with error
 
-opened:     LOAD    rf, flags         ; check for executable
-            ldn     rf                ; get the flag byte from file descriptor
-            ani     040h              ; Test executable bit is set
-            lbnz    opendest          ; if executable file, continue on
-            
-            CALL    o_close           ; close file
-            LOAD    rf, errmsg3       ; show error message
-            CALL    o_msg
-            lbr     goodbye           ; exit
-                        
-opendest:   LOAD    rf, dest          ; point to destination filename
+
+opened1:    LOAD    rf, dest          ; point to destination filename
                       
             LOAD    rd, dfildes       ; get file descriptor
             ldi     11                ; flags for open, executable, create if nonexist
@@ -146,7 +152,7 @@ opendest:   LOAD    rf, dest          ; point to destination filename
 
             LOAD    rf, errmsg2       ; point to error message
             CALL    o_msg             ; and display it
-            lbr     goodbye
+            ABEND
             
 opened2:    LOAD    rc, 6             ; want to read 6 bytes
             LOAD    rf, header        ; buffer to for header
@@ -195,8 +201,7 @@ done:       LOAD    rd, fildes        ; get source file descriptor
 
             LOAD    rd, dfildes       ; get detination file descriptor
             CALL    o_close           ; and close destination file
-                  
-goodbye:    lbr     o_wrmboot         ; return to os
+            RETURN                    ; return to os
 
            
 
