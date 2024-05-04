@@ -26,15 +26,10 @@
          org     2000h            ; Program code starts at 2000
            br      start
 
-           ; Build date
-date:      db      80h+9          ; Month, 80h offset means extended info
-           db      23             ; Day
-           dw      2021           ; year = 2021
-
-           ; Current build number
-build:     dw      5              
-
-          ; Must end with 0 (null)
+           ; Build information
+           ever 
+           
+           ; Must end with 0 (null)
            db      'Copyright 2021 Gaston Williams',0
 
 fildes:    db      0,0,0,0
@@ -122,7 +117,7 @@ xopenw:    push    rf                ; save consumed register
            str     rf                ; save it
            ani     0feh
            phi     re                ; put it back
-xopenw1:   CALL    f_read            ; read a byte from the serial port      
+xopenw1:   CALL    o_readkey         ; read a byte from the serial port      
            smi     nak               ; need a nak character
            lbnz    xopenw1           ; wait until a nak is received
            pop     rf                ; recover rf
@@ -174,7 +169,7 @@ xsend:     push    rf                 ; save consumed registers
            push    rc
 xsendnak:  ldi     soh                ; need to send soh character
            phi     rc                 ; initial value for checksum
-           CALL    f_tty              ; send it
+           CALL    o_type             ; send it
            LOAD    rf,block           ; need current block number
            ldn     rf                 ; get block number
            str     r2                 ; save it
@@ -182,7 +177,7 @@ xsendnak:  ldi     soh                ; need to send soh character
            add                        ; add in new byte
            phi     rc                 ; put it back
            ldn     r2                 ; recover block number
-           CALL    f_tty              ; and send it
+           CALL    o_type             ; and send it
            ldn     rf                 ; get block number back
            sdi     255                ; subtract from 255
            str     r2                 ; save it
@@ -190,7 +185,7 @@ xsendnak:  ldi     soh                ; need to send soh character
            add                        ; add in inverted block number
            phi     rc                 ; put it back
            ldn     r2                 ; recover inverted block number
-           CALL    f_tty              ; send it
+           CALL    o_type             ; send it
            ldi     128                ; 128 bytes to write
            plo     rc                 ; place into counter
            LOAD    rf,txrx            ; point rf to data block
@@ -200,13 +195,13 @@ xsend1:    lda     rf                 ; retrieve next byte
            add                        ; add in new byte
            phi     rc                 ; save checksum
            ldn     r2                 ; recover byte
-           CALL    f_tty              ; and send it
+           CALL    o_type             ; and send it
            dec     rc                 ; decrement byte count
            glo     rc                 ; get count
            lbnz    xsend1             ; jump if more bytes to send
            ghi     rc                 ; get checksum byte
-           CALL    f_tty              ; and send it
-xsend2:    CALL    f_read             ; read byte from serial port
+           CALL    o_type             ; and send it
+xsend2:    CALL    o_readkey          ; read byte from serial port
            str     r2                 ; save it
            smi     nak                ; was it a nak
            lbz     xsendnak           ; resend block if nak
@@ -245,8 +240,8 @@ xclosew1:  ldi     csub               ; character to put into buffer
            lbz     xclosew1           ; loop if not enough
            CALL    xsend              ; send final block
 xclosewd:  ldi     eot                ; need to send eot
-           CALL    f_tty              ; send it
-           CALL    f_read             ; read a byte
+           CALL    o_type             ; send it
+           CALL    o_readkey          ; read a byte
            smi     06h                ; needs to be an ACK
            lbnz    xclosewd           ; resend EOT if not ACK
            LOAD    rf,baud            ; need to restore baud constant
