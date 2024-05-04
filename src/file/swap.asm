@@ -1,5 +1,7 @@
 ; -------------------------------------------------------------------
-; Display a prompt to change the disk and then boot the new disk
+; Display a prompt to change the disk and wait for user input. 
+; Then boot the Elf/OS from the new disk.
+;
 ; Copyright 2024 by Gaston Williams
 ; -------------------------------------------------------------------
 ; Based on software written by Michael H Riley
@@ -35,7 +37,7 @@
           ; Must end with 0 (null)
           db      'Copyright 2024 Gaston Williams',0
 
-start:    LOAD    rf, prompt      ; set rf to default message
+start:    load    rf, prompt      ; set rf to default message
                           
 chk_arg:  lda     ra              ; process arguments      
           smi     ' '
@@ -65,44 +67,48 @@ chk_arg:  lda     ra              ; process arguments
           
           lbr     bad_arg         ; anything else is a bad argument
 
-waits:    CALL    O_MSG           ; display prompt
-          CALL    O_INPUT         ; wait here for serial input
-          br      goodbye         ; boot new card
+waits:    call    o_msg           ; display prompt
+          call    o_input         ; wait here for serial input
+          br      boot            ; boot new card
                    
-wait1:    CALL    O_MSG           ; display prompt
+wait1:    call    o_msg           ; display prompt
           bn1     $               ; wait here for input press on /ef1
           b1      $               ; wait for button up
-          br      goodbye         ; boot new card
+          br      boot            ; boot new card
           
-wait2:    CALL    O_MSG           ; display prompt
+wait2:    call    o_msg           ; display prompt
           bn2     $               ; wait here for input press on /ef2
           b2      $               ; wait for button up
-          br      goodbye         ; boot new card
+          br      boot            ; boot new card
           
-wait3:    CALL    O_MSG           ; display prompt
+wait3:    call    o_msg           ; display prompt
           bn3     $               ; wait here for input press on /ef3
           b3      $               ; wait for button up
-          br      goodbye         ; boot new card
+          br      boot            ; boot new card
           
-wait4:    CALL    O_MSG           ; display prompt
+wait4:    call    o_msg           ; display prompt
           bn4     $               ; wait here for input press on /ef4                                  
           b4      $               ; wait for button up
           
-          ; exit point for new card
-goodbye:  lbr     O_CLDBOOT       ; boot Elf/OS on new card
+          ; Boot Elf/OS from the new card
+          ; This code is taken from Mike Riley's reboot program
+boot:     sex     r3              ; x=p to inline the ret data byte
+          ret                     ; enable interrupts
+          db      $23             ; set X=2, P=3
+          lbr     f_boot          ; jump to bios boot routine
 
         
-bad_arg:  LOAD    rf, usage       ; show usage text and exit
-          CALL    O_MSG           
-          LOAD    rf, info1
-          CALL    O_MSG        
-          LOAD    rf, info2
-          CALL    O_MSG 
-          LOAD    rf, info3
-          CALL    O_MSG 
-          LOAD    rf, info4
-          CALL    O_MSG                     
-          RETURN                  ; return to Elf/OS
+bad_arg:  load    rf, usage       ; show usage text and exit
+          call    o_msg           
+          load    rf, info1       ; show additional information
+          call    o_msg        
+          load    rf, info2
+          call    o_msg 
+          load    rf, info3
+          call    o_msg 
+          load    rf, info4
+          call    o_msg                     
+          return                  ; return to Elf/OS
         
 prompt:   db 'Change disk and press Input to boot new disk...',13,10,0       
 usage:    db 'Usage: swap [-0|-1|-2|-3|-4, default = -4]',13,10,0
