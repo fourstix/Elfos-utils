@@ -247,31 +247,31 @@ Repository Contents
   
   All libraries used in this code are copyright their respective authors.
   
-  This code is based on a Elf/OS code libraries written by Mike Riley and assembled with the RcAsm assembler also written by Mike Riley.
+  This code is based on a Elf/OS code libraries written by Mike Riley and assembled with the Asm/02 assembler also written by Mike Riley.
   
   Elf/OS 
-  Copyright (c) 2004-2022 by Mike Riley
+  Copyright (c) 2004-2024 by Mike Riley
   
   Asm/02 1802 Assembler
-  Copyright (c) 2004-2022 by Mike Riley
+  Copyright (c) 2004-2024 by Mike Riley
   
   Elf/OS Init Program 
-  Copyright (c) 2022 by David Madole
+  Copyright (c) 2022-2024 by David Madole
   
   Elf/OS 1854 UART Studio Driver Program 
   Copyright (c) 2021-2024 by David Madole
     
   The Pico/Elf Microcomputer Hardware
-  Copyright (c) 2020-2022 by Mike Riley
+  Copyright (c) 2020-2024 by Mike Riley
    
   The STG Pico/Elf EPROM v1.12
-  Copyright (c) 2004-2022 by Spare Time Gizmos.
+  Copyright (c) 2004-2024 by Spare Time Gizmos.
   
   STG NVR/RTC/UART Pico/Elf Expansion Card hardware
-  Copyright (c) 2020-2022 by Spare Time Gizmos.
+  Copyright (c) 2020-2024 by Spare Time Gizmos.
   
   The 1802-Mini Microcomputer Hardware
-  Copyright (c) 2020-2022 by David Madole
+  Copyright (c) 2020-2024 by David Madole
   
   Many thanks to the original authors for making their designs and code available as open source.
    
@@ -279,7 +279,7 @@ Repository Contents
   
   The MIT License (MIT)
   
-  Copyright (c) 2022 by Gaston Williams
+  Copyright (c) 2024 by Gaston Williams
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
