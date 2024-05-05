@@ -257,6 +257,9 @@ Repository Contents
   
   Elf/OS Init Program 
   Copyright (c) 2022 by David Madole
+  
+  Elf/OS 1854 UART Studio Driver Program 
+  Copyright (c) 2021-2024 by David Madole
     
   The Pico/Elf Microcomputer Hardware
   Copyright (c) 2020-2022 by Mike Riley
