@@ -2,9 +2,9 @@
 A set of simple utility commands for the Elf/OS.  These commands were all assembled into 1802 binary files using the 
 [Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
 
-XSB Utility  
------------
-If you are looking for the latest version of the XSB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin).
+XSB and XRB Utilities  
+--------------------_
+If you are looking for the latest version of the XSB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin). If you are looking for the updated version of the XRB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xrb.bin).
 
 Platform  
 --------
@@ -42,7 +42,12 @@ Trim the executable file *filename* to the runtime size in its header, and save 
 
 ## xsb
 **Usage:** xsb *filename*    
-XModem Send command that uses the hardware UART from am expansion card instead of the bit banged serial routines to send the file named *filename*.  This command is the compliment to the **xrb** [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr), and can be used to send binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expansion card's UART serial interface, or from the 1802-Mini to another computer via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.
+XModem Send command that uses the hardware UART from am expansion card instead of the bit banged serial routines to send the file named *filename*.  This command is the compliment to the **xrb** [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr), and can be used to send binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expansion card's UART serial interface, or from the 1802-Mini to another computer via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface. Xsb uses Elf/OS Kernel API and is compatible with Elf/OS UART drivers such as the [Elf/OS Studio](https://github.com/dmadole/Elfos-studio) driver. 
+
+
+## xrb
+**Usage:** xrb *filename*    
+XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, and is compatible with Elf/OS UART drivers such as the [Elf/OS Studio](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receieve binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expansion card's UART serial interface, or from the 1802-Mini to another computer via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.
 
 Elf/OS System Utility Commands
 -------------------------------------
@@ -151,7 +156,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, scpy, xtrim and xsb commands. Extract these files with the Elf/OS command *lbr e file_utils*
+* file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, scpy, xtrim xrb and xsb commands. Extract these files with the Elf/OS command *lbr e file_utils*
 * sys_utils.lbr - Library file for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
 * io_utils.lbr - Library file for Elf/OS I/O utilities containing the about, clr, drive, input, nop, output, pause, pwd, say and up commands. Extract these files with the Elf/OS command *lbr e io_utils*
 * pixie_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e pixie_utils*
@@ -185,7 +190,8 @@ Repository Contents
   * header.asm - Show the executable header information for a file.
   * scpy.asm - Safely copy a file.
   * xtrim.asm - Trim an executable file to its runtime size.
-  * xsb.asm - XMODEM Send using the hardware UART  
+  * xrb.asm - XMODEM Receive using the hardware UART and Elf/OS Kernel API.  
+  * xsb.asm - XMODEM Send using the hardware UART and Elf/OS Kernel API.
 * **/src/io/**  -- Source files for Elf/OS I/O utilities.  
   * about.asm - Show information about the current drive
   * clr.asm - Clear the screen
