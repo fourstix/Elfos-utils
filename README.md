@@ -47,7 +47,7 @@ XModem Send command that uses the hardware UART from am expansion card instead o
 
 ## xrb
 **Usage:** xrb *filename*    
-XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, and is compatible with Elf/OS UART drivers such as the [Elf/OS Studio](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receieve binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expansion card's UART serial interface, or from the 1802-Mini to another computer via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.
+XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.
 
 Elf/OS System Utility Commands
 -------------------------------------
