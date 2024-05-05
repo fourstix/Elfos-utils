@@ -3,7 +3,7 @@ A set of simple utility commands for the Elf/OS.  These commands were all assemb
 [Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
 
 XSB and XRB Utilities  
---------------------_
+---------------------
 If you are looking for the latest version of the XSB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin). If you are looking for the updated version of the XRB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xrb.bin).
 
 Platform  
