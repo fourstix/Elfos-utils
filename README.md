@@ -26,8 +26,8 @@ The cmd program occupies memory from $5000 to $6000.  Programs up to 12K in size
 
 ## flags
 **Usage:** flags *filename*    
-Show the Elf/OS flags associated with the file. Display 'd' for a directory file, 'x' for an executable file, 'h' for a hidden file and 'w' for write-protected file.  
-If a flag is not set, then a dot '.' is displayed instead. The string '. . . .' means no flags are set for the file.
+Show the Elf/OS flags associated with the file. Display 'd' for a directory file, 'x' for an executable file, 'h' for a hidden file and 'w' for write-protected file.  If a flag is not set, then a dot '.' is displayed instead.  
+The string *'. . . .'* means no flags are set for the file.
 
 ## header
 **Usage:** header *filename*    
