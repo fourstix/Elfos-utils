@@ -35,12 +35,12 @@ Show the executable header information for a file to display the program load ad
 ## scpy
 **Usage:** scpy [-y] *source* *dest*    
 Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*  
-**Obsolete:** The Elf/OS *copy* command now supports this function. 
+**Obsolete:** The Elf/OS version 5 *copy* command now supports this function. 
 
 ## xrb
 **Usage:** xrb *filename*    
 XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.  
-**Obsolete:** The Elf/OS *xr* command now supports the hardware UART. 
+**Obsolete:** The Elf/OS version 5 *xr* command now supports the hardware UART. 
 
 ## xsb
 **Usage:** xsb *filename*    
@@ -95,7 +95,7 @@ to show information about the disk in the current drive.
 ## clr
 **Usage:** clr    
 Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*  
-**Obsolete:** The Elf/OS *cls* command now supports this function. 
+**Obsolete:** The Elf/OS version 5 *cls* command now supports this function. 
 
 ## drive
 **Usage:** drive    
@@ -128,7 +128,7 @@ Print the string *text* to the output. *Useful for printing text output in comma
 ## up
 **Usage:** up    
 Move up to the Parent Directory, write the new current directory to the output.  
-**Obsolete:** The ELf/OS *chdir* command now supports this function. 
+**Obsolete:** The ELf/OS version 5 *chdir* command now supports this function. 
 
 STG EPROM Utility Commands  
 ----------------------------
