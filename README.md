@@ -8,7 +8,7 @@ If you are looking for the latest version of the XSB utility, it can be found [h
 
 Platform  
 --------
-These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.12](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v112%20BIOS%201.0.9.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.120](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v120%20BIOS%201.0.13.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
 Elf/OS File Utility Commands
 -------------------------------------
@@ -34,23 +34,21 @@ Show the executable header information for a file to display the program load ad
 
 ## scpy
 **Usage:** scpy [-y] *source* *dest*    
-Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*
-
+Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*  
+**Obsolete:** The Elf/OS *copy* command now supports this function. 
 
 ## xrb
 **Usage:** xrb *filename*    
-XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.
-
+XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.  
+**Obsolete:** The Elf/OS *xr* command now supports the hardware UART. 
 
 ## xsb
 **Usage:** xsb *filename*    
 XModem Send command that uses the hardware UART from am expansion card instead of the bit banged serial routines to send the file named *filename*.  This command is the compliment to the **xrb** [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr), and can be used to send binary files from the Pico/Elf to another computer via the STG NVR/RTC/UART expansion card's UART serial interface, or from the 1802-Mini to another computer via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface. Xsb uses Elf/OS Kernel API and is compatible with Elf/OS UART drivers such as the [Elf/OS Studio](https://github.com/dmadole/Elfos-studio) driver. 
 
-
 ## xtrim
 **Usage:** xtrim *filename*, where *filename* is an executable file.  
 Trim the executable file *filename* to the runtime size in its header, and save with the .tr extension.  *Useful to remove padding bytes added by an XMODEM transfer* 
-
 
 ## xtrunc
 **Usage:** xtrunc *filename*  
@@ -96,7 +94,8 @@ to show information about the disk in the current drive.
 
 ## clr
 **Usage:** clr    
-Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*
+Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*  
+**Obsolete:** The Elf/OS *cls* command now supports this function. 
 
 ## drive
 **Usage:** drive    
@@ -128,18 +127,19 @@ Print the string *text* to the output. *Useful for printing text output in comma
 
 ## up
 **Usage:** up    
-Move up to the Parent Directory, write the new current directory to the output.
+Move up to the Parent Directory, write the new current directory to the output.  
+**Obsolete:** The ELf/OS *chdir* command now supports this function. 
 
 STG EPROM Utility Commands  
 ----------------------------
 
 ## stg
 **Usage:** stg    
-Jump to the STG Pico/Elf EPROM v1.12 menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the EPROM menu.
+Jump to the STG Pico/Elf EPROM menu.  This command is the same as *Exec 8003*. Use *CALL 0303* to execute a Warm Boot to return to the Elf/OS from the EPROM menu.
 
 ## visualstg
 **Usage:** visualstg  
-Run Visual02 from the STG Pico/Elf EPROM v1.12 code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf EPROM.  *Rename or copy to visual02 in the /bin directory to replace the original command.*
+Run Visual02 from the STG Pico/Elf EPROM code. This command replaces the Elf/OS visual02 command to correctly invoke the visual02 code in the STG Pico/Elf EPROM.  *Rename or copy to visual02 in the /bin directory to replace the original command.*
 
 1861 Pixie Video Demo and Utility Commands
 ------------------------------------------
@@ -218,8 +218,8 @@ Repository Contents
   * tvclock - Tom Pittman's TV Clock Demo program (Press Input /EF4 to exit)
   * voff - Turn 1861 Pixie Video Off (OUT 1 and disable interrupts)    
 * **/src/stg/**  -- Source files for STG NVR/RTC/UART and STG EPROM utilities.  
-  * stg.asm - jump to the STG v1.12 EPROM menu
-  * visualstg.asm - Run Visual02 from the STG v1.12 EPROM code (replaces visual02 command)
+  * stg.asm - jump to the STG EPROM menu
+  * visualstg.asm - Run Visual02 from the STG EPROM code (replaces visual02 command)
 * **/src/sys/**  -- Source files for Elf/OS system utilities.
   * int.asm - Display interrupt status
   * malloc.asm - Allocate block of memory on the heap.
@@ -273,7 +273,7 @@ Copyright (c) 2021-2024 by David Madole
 The Pico/Elf Microcomputer Hardware 
 Copyright (c) 2020-2024 by Mike Riley
    
-The STG Pico/Elf EPROM v1.12 
+The STG Pico/Elf EPROM 
 Copyright (c) 2004-2024 by Spare Time Gizmos.
   
 STG NVR/RTC/UART Pico/Elf Expansion Card hardware 
