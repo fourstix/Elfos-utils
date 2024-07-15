@@ -39,7 +39,7 @@ Safely copy the file from *source* to the destination file *dest*.  The scpy com
 
 ## swap
 **Usage:** swap [-0|-1|-2|-3|-4, default = -4]  
-Display a prompt *Change disk and press Input to boot new disk...* and wait for Input to reboot the system and load Elf/OS from the new disk.  The options -1,-2,-3 or -4 will wait for input on the /EFn line.  The option -0 will wait for serial input. The default is to wait for Input on /EF4.
+Display the prompt *Change disk and press Input to boot new disk...* and wait for Input to reboot the system and load Elf/OS from the new disk.  The options -1,-2,-3 or -4 will wait for input on the /EFn line.  The option -0 will wait for serial input. The default is to wait for Input on /EF4.
 
 ## xrb
 **Usage:** xrb *filename*    
