@@ -20,10 +20,11 @@
 #include bios.inc
 #include kernel.inc
 
-           ; Define internal kernel AP
+           ; Define internal kernel API
 d_reapheap: equ 044dh
 d_progend:  equ 0450h
 d_lowmem:   equ 0465h
+d_dispatch: equ 0501h
 
            ; Program header to start at $5000
 
@@ -37,11 +38,11 @@ start:     org     5000h
 
            ; Build information
 
-           db      9+80h              ; month
-           db      23                 ; day
-           dw      2021               ; year
+           db      1+80h              ; month
+           db      6                  ; day
+           dw      2024               ; year
            dw      5                  ; build
-text:      db      'Copyright 2021 Gaston Williams',0
+text:      db      'Copyright 2024 Gaston Williams',0
 
            ; If Input button is pressed when run, skip execution
 main:      bn4     chk_os
@@ -50,7 +51,7 @@ main:      bn4     chk_os
            lbr     goodbye     ; exit program
 
            ; verify elf/os kernel version before executing
-chk_os:    LOAD    rf, k_ver         ; get pointer to kernel version
+chk_os:    LOAD    rf, k_ver          ; get pointer to kernel version
 
            lda     rf                 ; if major is non-zero we are good
            lbnz    setup
@@ -119,14 +120,14 @@ openfile:  CALL    o_open              ; open file
 
            ; Set the allocation low memory value to $6000 to prevent
            ; programs from allocating down to the loader buffer.           
-           
+       
            LOAD    rd, d_lowmem     ; Point RD to lowmem location in kernel
   
            ldi     60h              ; load lowmem with floor of $6000
            str     rd               ; Elf/OS will not allocate a block
            inc     rd               ; of memory below this floor value
            ldi     00h 
-           str    rd
+           str     rd
 
            ; We need to intercept the kernel o_wrmboot d_progend return vector
            ; because that is the recommended way for programs to return to
@@ -207,6 +208,7 @@ scanline:  dec     rc                 ; if at end of input, then quit
            LOAD    rf, crlf           ; go to next line after command 
            CALL    o_msg
            
+                      
 noecho:    LOAD    rd, warmretn       ; pointer to save registers
                                       ; in area below warmretn
            dec     rd                 ; point to top of inp_stck
@@ -229,7 +231,8 @@ strcpy:    lda     rb                 ; the copy is needed not just to prepend
            str     rd                 ; /bin/ but also because o_exec modifies
            inc     rd                 ; the string it is passed in-place so
            lbnz    strcpy             ; we can't reuse it
-
+       
+           load    rf, filepath
            CALL    o_exec             ; try executing the plain command line  
            lbnf    execgood
 
@@ -242,11 +245,12 @@ strcpy:    lda     rb                 ; the copy is needed not just to prepend
            ; If the executed program ends with lbr o_wrmboot instead of sep sret
            ; then control will also come here. 
 
-execgood:  LOAD    rf, crlf           ; if exec is succesful, output a blank
+execgood:  LOAD    rf, crlf           ; if exec is successful, output a blank
            CALL    o_msg              ; line to separate output
 
 
-execfail:  CALL    d_reapheap
+execfail:  load    r9, d_dispatch     ; must set R9 to dispatcher 
+           CALL    d_reapheap         ; before calling reapheap
 
            LOAD    rd, inp_stck       ; pointer to restore registers
            sex     rd                 ; set stack to point to local stack
