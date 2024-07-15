@@ -37,6 +37,10 @@ Show the executable header information for a file to display the program load ad
 Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*  
 **Obsolete:** The Elf/OS version 5 *copy* command now supports this function. 
 
+## swap
+**Usage:** swap [-0|-1|-2|-3|-4, default = -4]  
+Display a prompt *Change disk and press Input to boot new disk...* and wait for Input to reboot to load Elf/OS from the new disk.  The options -1,-2,-3 or -4 will wait for input on the /EFn line.  The option -0 will wait for serial input. The default is to wait for Input on /EF4.
+
 ## xrb
 **Usage:** xrb *filename*    
 XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.  
@@ -164,7 +168,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 Library Files
 -------------
 The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, scpy, xrb, xsb, xtrim and xtrunc commands. Extract these files with the Elf/OS command *lbr e file_utils*
+* file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, scpy, swap, xrb, xsb, xtrim and xtrunc commands. Extract these files with the Elf/OS command *lbr e file_utils*
 * sys_utils.lbr - Library file for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
 * io_utils.lbr - Library file for Elf/OS I/O utilities containing the about, clr, drive, input, nop, output, pause, pwd, say and up commands. Extract these files with the Elf/OS command *lbr e io_utils*
 * pixie_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e pixie_utils*
@@ -197,6 +201,7 @@ Repository Contents
   * flags.asm - Show Elf/OS flags associated with a file.
   * header.asm - Show the executable header information for a file.
   * scpy.asm - Safely copy a file.
+  * swap.asm - Display a prompt to change disk and wait for input to boot new disk.
   * xrb.asm - XMODEM Receive using the hardware UART and Elf/OS Kernel API.  
   * xsb.asm - XMODEM Send using the hardware UART and Elf/OS Kernel API.
   * xtrim.asm - Trim an executable file to its runtime size.
