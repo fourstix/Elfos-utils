@@ -25,7 +25,7 @@ The cmd program occupies memory from $5000 to $6000.  Programs up to 12K in size
 
 ## find
 **Usage:** find [-i|-p|-h] *filename* [directory, default = current]  
-Search a directory and its sub-directories for file names matching *filename*.  If no directory is specified then the current directory will be searched.  The option -i will ignore case when matching file names, the option -p, will match *filename* as prefix to file names and the option -h, will include hidden files and directories in the search.
+Search a directory and its sub-directories for file names matching *filename*.  If no directory is specified then the current directory will be searched.  The option -i will ignore case when matching file names, the option -p, will match *filename* as prefix beginning file names and the option -h, will include hidden files and directories in the search.
 
 ## flags
 **Usage:** flags *filename*    
