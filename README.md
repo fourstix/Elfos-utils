@@ -25,7 +25,7 @@ To use *cmd* as the ELf/OS init program, copy this file as an executable file na
 The cmd program occupies memory from $5000 to $6000.  Programs up to 12K in size that load at $2000 can be run from a command file.  If a program allocates memory so that the heap goes below $6000, the command interpreter will exit with an 'Out of Memory' error. 
 
 ## find
-**Usage:** find [-i|-p|-h] *filename* [directory, default = current]
+**Usage:** find [-i|-p|-h] *filename* [directory, default = current]  
 Search a directory and its sub-directories for file names matching *filename*.
 The option  -i will ignore case when matching, the option -p, will match *filename* as prefix to file names and the option -h, will include hidden files and directories in the search.
 
@@ -42,7 +42,7 @@ Show the executable header information for a file to display the program load ad
 Display the prompt *Change disk and press Input to boot new disk...* and wait for Input to reboot the system and load Elf/OS from the new disk.  The options -1,-2,-3 or -4 will wait for input on the /EFn line.  The option -0 will wait for serial input. The default is to wait for Input on /EF4.
 
 ## tree
-**Usage:** tree [-d|-s|-h] [directory, default = current]
+**Usage:** tree [-d|-s|-h] [directory, default = current]  
 List the contents of a directory and its sub-directories in a branching format. The option -d will list only directories, the option -s, will sort each directory's contents by name and the option -h will include hidden files and directories.
 
 ## xsb
@@ -152,7 +152,6 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 
 Obsolete Utility Commands  
 --------------------------
-
 ## clr
 **Usage:** clr    
 Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*  
@@ -160,8 +159,8 @@ Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cl
 
 ## drive
 **Usage:** drive    
-Write the current drive number to the output.
-**Obsolete:** 
+Write the current drive number to the output.  
+**Obsolete:** (TBD when Elf/OS version 5 supports multiple drives)
 
 ## scpy
 **Usage:** scpy [-y] *source* *dest*    
@@ -178,14 +177,16 @@ Move up to the Parent Directory, write the new current directory to the output.
 XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.  
 **Obsolete:** The Elf/OS version 5 *xr* command now supports the hardware UART. 
 
-Library Files
--------------
-The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, scpy, swap, xrb, xsb, xtrim and xtrunc commands. Extract these files with the Elf/OS command *lbr e file_utils*
-* sys_utils.lbr - Library file for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
-* io_utils.lbr - Library file for Elf/OS I/O utilities containing the about, clr, drive, input, nop, output, pause, pwd, say and up commands. Extract these files with the Elf/OS command *lbr e io_utils*
+File Archive Libraries
+-----------------------
+The command files are grouped into six Elf/OS file archive library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
+* file_utils.lbr - File archive library for Elf/OS file utilities containing the cmd, find, flags, header, swap, tree, xsb, xtrim and xtrunc commands. Extract these files with the Elf/OS command *lbr e file_utils*
+* sys_utils.lbr - File archive library for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
+* io_utils.lbr - Library file for Elf/OS I/O utilities containing the about, input, nop, output, pause, pwd and say commands. Extract these files with the Elf/OS command *lbr e io_utils*
 * pixie_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e pixie_utils*
 * stg_utils.lbr - Library file for the STG EPROM utilities containing the stg and videostg commands. Extract these files with the Elf/OS command *lbr e stg_utils*
+* obs_utils.lbr - File archive library for obsolete Elf/OS utilities containg the clr, drive, scpy, 
+up and xrb commands. Extract these files with the Elf/OS command *lbr e obs_utils*  
 
 Help Files
 -------------
@@ -199,8 +200,9 @@ The command *help utils:* (note that it ends with a colon) will list all the uti
 
 Other documentation
 -------------------
-The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip
-file archive of this website available here in the docs subfolder.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
+The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip file archive of this website available here in the docs subfolder.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
+
+The stdlib5.doc file provides a list of routines in the Elf/OS version 5 standard library.
 
 Repository Contents
 -------------------
