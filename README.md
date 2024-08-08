@@ -25,8 +25,7 @@ The cmd program occupies memory from $5000 to $6000.  Programs up to 12K in size
 
 ## find
 **Usage:** find [-i|-p|-h] *filename* [directory, default = current]  
-Search a directory and its sub-directories for file names matching *filename*.
-The option  -i will ignore case when matching, the option -p, will match *filename* as prefix to file names and the option -h, will include hidden files and directories in the search.
+Search a directory and its sub-directories for file names matching *filename*.  If no directory is specified then the current directory will be searched.  The option -i will ignore case when matching file names, the option -p, will match *filename* as prefix to file names and the option -h, will include hidden files and directories in the search.
 
 ## flags
 **Usage:** flags *filename*    
@@ -42,7 +41,7 @@ Display the prompt *Change disk and press Input to boot new disk...* and wait fo
 
 ## tree
 **Usage:** tree [-d|-s|-h] [directory, default = current]  
-List the contents of a directory and its sub-directories in a branching format. The option -d will list only directories, the option -s, will sort each directory's contents by name and the option -h will include hidden files and directories.
+List the contents of a directory and its sub-directories in a branching format. If no directory is specified then the current directory will be listed.  The option -d will list only directories, the option -s, will sort each directory's contents by name and the option -h will include hidden files and directories in the listing.
 
 ## xsb
 **Usage:** xsb *filename*    
