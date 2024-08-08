@@ -1,6 +1,5 @@
 # Elfos-utils  
-A set of simple utility commands for the Elf/OS.  These commands were all assembled into 1802 binary files using the 
-[Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
+A set of simple utility commands for the Elf/OS.  These commands were assembled into 1802 binary files using the [Asm/02 1802 Assembler](https://github.com/fourstix/Asm-02), the [Link/02 1802 Linker](https://github.com/fourstix/Link-02) and the [Elf/OS v5 Standard Library](https://github.com/rileym65/ElfosV5) by Mike Riley.
 
 XSB and XRB Utilities  
 ---------------------
@@ -198,17 +197,23 @@ The help information for an individual command can be displayed by typing *help 
 
 The command *help utils:* (note that it ends with a colon) will list all the utility programs with help information.  
 
+Elf/OS v5 Standard Library
+--------------------------
+Some of the utilities, such as tree and find, use the Elf/OS v5 Standard Library stdlib5.lib with the Link/02 linker to create the Elf/OS binaries.  The stdlib5.lib file is availble in the **/lib** directory and contains many useful mathmetic and string functions common to Elf/OS programs.
+
+
 Other documentation
 -------------------
 The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip file archive of this website available here in the docs subfolder.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
 
-The stdlib5.doc file provides a list of routines in the Elf/OS version 5 standard library.
+The stdlib5.txt file provides documentation for the routines in the Elf/OS version 5 standard library and the 
+errorcodes.txt file documents the various error codes used by Elf/OS version 5.
 
 Repository Contents
 -------------------
 * **/src/**  -- Common source files for assembling Elf/OS utilities.
   * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
-  * build.bat - Windows batch file to assemble tree and find source files with Asm/02 to create object files and then use Link/02 to link the object files into a binary file.
+  * build.bat - Windows batch file to assemble the tree and find source files with Asm/02 to create object files and then use Link/02 to link the object files into a binary file.
 * **/src/include/**  -- Include files for Elf/OS file utilities.
   * ops.inc - Opcode definitions for Asm/02.
   * bios.inc - Bios definitions from Elf/OS
@@ -218,11 +223,11 @@ Repository Contents
 * **/src/file/**  -- Source files for Elf/OS file utilities.
   * cmd.asm - Run commands from a file.
   * flags.asm - Show Elf/OS flags associated with a file.
-  * find.asm - Find files in a directory and its sub-directories.
+  * find.asm - Find files in a directory and its sub-directories that match a name.
   * find_buf.asm - Buffer definitions file used to create the find utility.
   * header.asm - Show the executable header information for a file.
   * swap.asm - Display a prompt to change disk and wait for input to boot new disk.
-  * tree.asm - List the contents of a directory and its sub-directories.
+  * tree.asm - List the contents of a directory and its sub-directories in a branching format.
   * tree_buf.asm - Buffer definitions file used to create the find utility.
   * xsb.asm - XMODEM Send using the hardware UART and Elf/OS Kernel API.
   * xtrim.asm - Trim an executable file to its runtime size.
@@ -262,17 +267,19 @@ Repository Contents
 * **/bin/sys/**  -- Binary files for Elf/OS System utilities. 
 * **/bin/pixie/**  -- Binary files for 1861 Pixie Video utilities and demo programs  
 * **/bin/obs/**  -- Binary files for obsolete Elf/OS utilities. 
-* **/lbr/**  -- Library files for Elf/OS utilities. (Unpack with Elf/OS lbr command)
-  * file_utils.lbr - Library file for Elf/OS file utilities.
-  * io_utils.lbr - Library file for Elf/OS I/O utilities.
-  * pixie_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities.  
-  * stg_utils.lbr - Library file for STG EPROM utilities.
-  * sys_utils.lbr - Library file for Elf/OS system utilities.
+* **/lbr/**  -- File archive Libraries containing the Elf/OS utilities. (Unpack with Elf/OS lbr command)
+  * file_utils.lbr - File archive library for Elf/OS file utilities.
+  * io_utils.lbr - File archive library for Elf/OS I/O utilities.
+  * pixie_utils.lbr - File archive library for ELf/OS 1861 Pixie Video utilities.  
+  * stg_utils.lbr - File archive library for STG EPROM utilities.
+  * sys_utils.lbr - File archive library for Elf/OS system utilities.
+  * obs_utils.lbr - File archive library for obsolete Elf/OS utilities.
 * **/hlp/**  -- Help file for Elf/OS utilities. (Used with Elf/OS help command)
   * utils.lbr - Help file for Elf/OS file utilities. (Do not unpack with lbr, instead copy into /hlp directory.)  
 * **/docs/**  -- Other Elf/OS documentation.
   * elf-emulation.com.zip - Zip archive file for Elf-Emulation.com website.
-  * stdlib5.doc - Elf/OS version 5 standard library documentation.
+  * stdlib5.txt - Elf/OS version 5 standard library documentation.
+  * errorcodes.txt - Elf/OS version 5 error code documentation.
   
 License Information
 -------------------

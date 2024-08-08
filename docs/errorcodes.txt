@@ -1,0 +1,33 @@
+Error codes:
+01 - Attempt to write read-only file
+02 - Invalid FILDES
+03 - File is not executable
+04 - Could not open file
+05 - Memory low
+06 - Attempt to seek negative position
+07 - Invalid seek mode
+08 - Invalid directory
+09 - Invalid option
+0A - Missing argument
+0B - Argument format error
+0C - File not found
+0D - No data
+0E - Could not create file/directory
+0F - Disk full
+10 - File not open
+11 - Invalid filename
+12 - Attempt to open directory invalid
+13 - Relative path not allowed
+14 - Invalid Elf/OS version
+15 - Position past end of file
+16 - Overlay name not found
+17 - Invalid overlay number
+18 - OCB not initialized
+19 - Too many arguments provided
+1a - Destination not a directory
+1b - Feature not present
+1c - Unknown disk
+1d - Invalid Heap block
+
+FF - Unclassified error
+FE - User program error
