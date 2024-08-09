@@ -3,11 +3,13 @@ A set of simple utility commands for the Elf/OS.  These commands were assembled 
 
 XSB and XRB Utilities  
 ---------------------
+
 If you are looking for the latest version of the XSB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin). If you are looking for the updated version of the XRB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xrb.bin).
 
 Platform  
 --------
-These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.120](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v120%20BIOS%201.0.13.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+
+These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.120](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v120%20BIOS%201.0.13.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole and the [AVI Elf-II](https://github.com/awasson/AVI-ELF-II) by Andrew Wasson, Josh Bensadon *et al*. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
 Elf/OS File Utility Commands
 -------------------------------------
@@ -24,8 +26,8 @@ To use *cmd* as the ELf/OS init program, copy this file as an executable file na
 The cmd program occupies memory from $5000 to $6000.  Programs up to 12K in size that load at $2000 can be run from a command file.  If a program allocates memory so that the heap goes below $6000, the command interpreter will exit with an 'Out of Memory' error. 
 
 ## find
-**Usage:** find [-i|-p|-h] *filename* [directory, default = current]  
-Search a directory and its sub-directories for file names matching *filename*.  If no directory is specified then the current directory will be searched.  The option -i will ignore case when matching file names, the option -p, will match *filename* as prefix beginning file names and the option -h, will include hidden files and directories in the search.
+**Usage:** find [-i|-p|-h] *name* [directory, default = current]  
+Search a directory and its sub-directories for file names matching *name*.  If no directory is specified then the current directory will be searched.  The option -i will ignore case when matching file names, the option -p, will match *name* as prefix beginning file names and the option -h, will include hidden files and directories in the search.
 
 ## flags
 **Usage:** flags *filename*    
@@ -130,6 +132,7 @@ Run Visual02 from the STG Pico/Elf EPROM code. This command replaces the Elf/OS 
 
 1861 Pixie Video Demo and Utility Commands
 ------------------------------------------
+ 
 ## spaceship
 **Usage:** spaceship *(Press Input /EF4 to exit program.)*    
 Joseph A Weisbecker's Pixie Graphic Demo program modified to 
@@ -150,6 +153,7 @@ is useful when debugging or writing pixie video programs to turn off a 1861 vide
 
 Obsolete Utility Commands  
 --------------------------
+ 
 ## clr
 **Usage:** clr    
 Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*  
@@ -177,6 +181,7 @@ XModem Receive command that uses the hardware UART from am expansion card instea
 
 File Archive Libraries
 -----------------------
+
 The command files are grouped into six Elf/OS file archive library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
 * file_utils.lbr - File archive library for Elf/OS file utilities containing the cmd, find, flags, header, swap, tree, xsb, xtrim and xtrunc commands. Extract these files with the Elf/OS command *lbr e file_utils*
 * sys_utils.lbr - File archive library for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
@@ -188,6 +193,7 @@ up and xrb commands. Extract these files with the Elf/OS command *lbr e obs_util
 
 Help Files
 -------------
+ 
 The utils.lbr file provides help information for the Elf/OS utilities.  Although this file has the 
 same format as an Elf/OS library, do not use the lbr command to unpack it.  Instead copy this file,
 as is, into the /hlp directory with the other help libraries.  The *help* command will extract information from this file.
@@ -198,11 +204,12 @@ The command *help utils:* (note that it ends with a colon) will list all the uti
 
 Elf/OS v5 Standard Library
 --------------------------
+ 
 Some of the utilities, such as tree and find, use the Elf/OS v5 Standard Library stdlib5.lib with the Link/02 linker to create the Elf/OS binaries.  The stdlib5.lib file is availble in the **/lib** directory and contains many useful mathmetic and string functions common to Elf/OS programs.
-
 
 Other documentation
 -------------------
+ 
 The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip file archive of this website available here in the docs subfolder.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
 
 The stdlib5.txt file provides documentation for the routines in the Elf/OS version 5 standard library and the 
@@ -210,6 +217,7 @@ errorcodes.txt file documents the various error codes used by Elf/OS version 5.
 
 Repository Contents
 -------------------
+ 
 * **/src/**  -- Common source files for assembling Elf/OS utilities.
   * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
   * build.bat - Windows batch file to assemble the tree and find source files with Asm/02 to create object files and then use Link/02 to link the object files into a binary file.
