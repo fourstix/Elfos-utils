@@ -11,6 +11,8 @@ Platform
 
 These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.120](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v120%20BIOS%201.0.13.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole and the [AVI Elf-II](https://github.com/awasson/AVI-ELF-II) by Andrew Wasson, Josh Bensadon *et al*. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
+These commands were written to run under [Elf/OS version 5](https://github.com/rileym65/ElfosV5).  The previous Elf/OS version 4 commands are available in release v4.1.1 [Last Kernel 4 Release](https://github.com/fourstix/Elfos-utils/releases/tag/v4.1.1). 
+
 Elf/OS File Utility Commands
 -------------------------------------
 
