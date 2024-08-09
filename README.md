@@ -1,14 +1,17 @@
 # Elfos-utils  
-A set of simple utility commands for the Elf/OS.  These commands were all assembled into 1802 binary files using the 
-[Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
+A set of simple utility commands for the Elf/OS.  These commands were assembled into 1802 binary files using the [Asm/02 1802 Assembler](https://github.com/fourstix/Asm-02), the [Link/02 1802 Linker](https://github.com/fourstix/Link-02) and the [Elf/OS v5 Standard Library](https://github.com/rileym65/ElfosV5) by Mike Riley.
 
 XSB and XRB Utilities  
 ---------------------
+
 If you are looking for the latest version of the XSB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xsb.bin). If you are looking for the updated version of the XRB utility, it can be found [here](https://github.com/fourstix/Elfos-utils/blob/main/bin/file/xrb.bin).
 
 Platform  
 --------
-These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.120](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v120%20BIOS%201.0.13.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+
+These commands were written to run on a [Pico/Elf](http://www.elf-emulation.com/picoelf.html) with the Spare Time Gizmos [STG RTC/NVR/UART expansion card](http://www.elf-emulation.com/hardware.html) and the [STG Pico/Elf EPROM v1.120](https://groups.io/g/cosmacelf/files/STG%20Elf2K/Elf2K%20and%20PicoElf%20EPROM%20v120%20BIOS%201.0.13.zip) written by Bob Armstrong. These commands have also been tested on the [1802-Mini](https://github.com/dmadole/1802-Mini) by David Madole and the [AVI Elf-II](https://github.com/awasson/AVI-ELF-II) by Andrew Wasson, Josh Bensadon *et al*. A lot of information and software for the Pico/Elf and the 1802-Mini can be found on the [Elf-Emulation](http://www.elf-emulation.com/) website and in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+
+These commands were written to run under [Elf/OS version 5](https://github.com/rileym65/ElfosV5).  The previous Elf/OS version 4 commands are available in release v4.1.1 [Last Kernel 4 Release](https://github.com/fourstix/Elfos-utils/releases/tag/v4.1.1). 
 
 Elf/OS File Utility Commands
 -------------------------------------
@@ -24,6 +27,10 @@ To use *cmd* as the ELf/OS init program, copy this file as an executable file na
 **Note:**
 The cmd program occupies memory from $5000 to $6000.  Programs up to 12K in size that load at $2000 can be run from a command file.  If a program allocates memory so that the heap goes below $6000, the command interpreter will exit with an 'Out of Memory' error. 
 
+## find
+**Usage:** find [-i|-p|-h] *name* [directory, default = current]  
+Search a directory and its sub-directories for file names matching *name*.  If no directory is specified then the current directory will be searched.  The option -i will ignore case when matching file names, the option -p, will match *name* as prefix beginning file names and the option -h, will include hidden files and directories in the search.
+
 ## flags
 **Usage:** flags *filename*    
 Show the Elf/OS flags associated with the file. Display 'd' for a directory file, 'x' for an executable file, 'h' for a hidden file and 'w' for write-protected file. If a flag is not set, then a dot '.' is displayed instead. The string '. . . .' means no flags are set for the file.
@@ -32,19 +39,13 @@ Show the Elf/OS flags associated with the file. Display 'd' for a directory file
 **Usage:** header *filename*    
 Show the executable header information for a file to display the program load address, program size and the program execution address.
 
-## scpy
-**Usage:** scpy [-y] *source* *dest*    
-Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*  
-**Obsolete:** The Elf/OS version 5 *copy* command now supports this function. 
-
 ## swap
 **Usage:** swap [-0|-1|-2|-3|-4, default = -4]  
 Display the prompt *Change disk and press Input to boot new disk...* and wait for Input to reboot the system and load Elf/OS from the new disk.  The options -1,-2,-3 or -4 will wait for input on the /EFn line.  The option -0 will wait for serial input. The default is to wait for Input on /EF4.
 
-## xrb
-**Usage:** xrb *filename*    
-XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.  
-**Obsolete:** The Elf/OS version 5 *xr* command now supports the hardware UART. 
+## tree
+**Usage:** tree [-d|-s|-h] [directory, default = current]  
+List the contents of a directory and its sub-directories in a branching format. If no directory is specified then the current directory will be listed.  The option -d will list only directories, the option -s, will sort each directory's contents by name and the option -h will include hidden files and directories in the listing.
 
 ## xsb
 **Usage:** xsb *filename*    
@@ -96,15 +97,6 @@ Elf/OS I/O Utility Commands
 Show information about the current drive. Write the contents of the file /cfg/about.nfo to the output
 to show information about the disk in the current drive.
 
-## clr
-**Usage:** clr    
-Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*  
-**Obsolete:** The Elf/OS version 5 *cls* command now supports this function. 
-
-## drive
-**Usage:** drive    
-Write the current drive number to the output.
-
 ## input
 **Usage:** input  
 Input and display data read from Port 4
@@ -129,11 +121,6 @@ Print Working Directory, write the current directory to the output.
 **Usage:** say *text*      
 Print the string *text* to the output. *Useful for printing text output in command files*
 
-## up
-**Usage:** up    
-Move up to the Parent Directory, write the new current directory to the output.  
-**Obsolete:** The ELf/OS version 5 *chdir* command now supports this function. 
-
 STG EPROM Utility Commands  
 ----------------------------
 
@@ -147,6 +134,7 @@ Run Visual02 from the STG Pico/Elf EPROM code. This command replaces the Elf/OS 
 
 1861 Pixie Video Demo and Utility Commands
 ------------------------------------------
+ 
 ## spaceship
 **Usage:** spaceship *(Press Input /EF4 to exit program.)*    
 Joseph A Weisbecker's Pixie Graphic Demo program modified to 
@@ -165,17 +153,49 @@ Tom Pittman's TV Clock program modified to run under Elf/OS.
 Video Off. Output Port 1 and Disable interrupts. This command 
 is useful when debugging or writing pixie video programs to turn off a 1861 video display.
 
-Library Files
--------------
-The command files are grouped into three Elf/OS library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
-* file_utils.lbr - Library file for Elf/OS file utilities containing the cmd, flags, header, scpy, swap, xrb, xsb, xtrim and xtrunc commands. Extract these files with the Elf/OS command *lbr e file_utils*
-* sys_utils.lbr - Library file for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
-* io_utils.lbr - Library file for Elf/OS I/O utilities containing the about, clr, drive, input, nop, output, pause, pwd, say and up commands. Extract these files with the Elf/OS command *lbr e io_utils*
+Obsolete Utility Commands  
+--------------------------
+ 
+## clr
+**Usage:** clr    
+Clear the screen. Clears both ANSI and non-ANSI displays. *Copy or rename to 'cls' to replace default Elf/OS command in the /bin directory.*  
+**Obsolete:** The Elf/OS version 5 *cls* command now supports this function. 
+
+## drive
+**Usage:** drive    
+Write the current drive number to the output.  
+**Obsolete:** (TBD when Elf/OS version 5 supports multiple drives)
+
+## scpy
+**Usage:** scpy [-y] *source* *dest*    
+Safely copy the file from *source* to the destination file *dest*.  The scpy command does not over-write directories and will prompt before over-writing an existing destination file.  The -y option will over-write an existing file without the prompt. *Copy or rename 'scpy' to 'copy' to replace default Elf/OS command in the /bin directory.*  
+**Obsolete:** The Elf/OS version 5 *copy* command now supports this function. 
+
+## up
+**Usage:** up    
+Move up to the Parent Directory, write the new current directory to the output.  
+**Obsolete:** The ELf/OS version 5 *chdir* command now supports this function. 
+
+## xrb
+**Usage:** xrb *filename*    
+XModem Receive command that uses the hardware UART from am expansion card instead of the bit banged serial routines to receive the file named *filename*.  This command is an updated version of the [XModem receive command](https://github.com/rileym65/Elf-Elfos-xr) that uses the Elf/OS Kernel API, to be compatible with Elf/OS UART drivers such as the [Elf/OS Studio 1854 UART](https://github.com/dmadole/Elfos-studio) driver. Xrb can be used to receive binary files from another computer to the Pico/Elf via the STG NVR/RTC/UART expansion card's UART serial interface, or from another computer to the 1802-Mini via the [1854 Serial](https://github.com/dmadole/1802-Mini-1854-Serial) card's UART serial or FTDI interface.  
+**Obsolete:** The Elf/OS version 5 *xr* command now supports the hardware UART. 
+
+File Archive Libraries
+-----------------------
+
+The command files are grouped into six Elf/OS file archive library files that can be unpacked with the Elf/OS lbr command using the e option to *extract* files.
+* file_utils.lbr - File archive library for Elf/OS file utilities containing the cmd, find, flags, header, swap, tree, xsb, xtrim and xtrunc commands. Extract these files with the Elf/OS command *lbr e file_utils*
+* sys_utils.lbr - File archive library for Elf/OS system utilities containing the int, malloc, mfree, req, seq and stack commands. Extract these files with the Elf/OS command *lbr e sys_utils*
+* io_utils.lbr - Library file for Elf/OS I/O utilities containing the about, input, nop, output, pause, pwd and say commands. Extract these files with the Elf/OS command *lbr e io_utils*
 * pixie_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities contains the spaceship, dma_test, tvclock and voff commands. Extract these files with the Elf/OS command *lbr e pixie_utils*
 * stg_utils.lbr - Library file for the STG EPROM utilities containing the stg and videostg commands. Extract these files with the Elf/OS command *lbr e stg_utils*
+* obs_utils.lbr - File archive library for obsolete Elf/OS utilities containg the clr, drive, scpy, 
+up and xrb commands. Extract these files with the Elf/OS command *lbr e obs_utils*  
 
 Help Files
 -------------
+ 
 The utils.lbr file provides help information for the Elf/OS utilities.  Although this file has the 
 same format as an Elf/OS library, do not use the lbr command to unpack it.  Instead copy this file,
 as is, into the /hlp directory with the other help libraries.  The *help* command will extract information from this file.
@@ -184,39 +204,51 @@ The help information for an individual command can be displayed by typing *help 
 
 The command *help utils:* (note that it ends with a colon) will list all the utility programs with help information.  
 
+Elf/OS v5 Standard Library
+--------------------------
+ 
+Some of the utilities, such as tree and find, use the Elf/OS v5 Standard Library stdlib5.lib with the Link/02 linker to create the Elf/OS binaries.  The stdlib5.lib file is availble in the **/lib** directory and contains many useful mathmetic and string functions common to Elf/OS programs.
+
 Other documentation
 -------------------
-The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip
-file archive of this website available here in the docs subfolder.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
+ 
+The Elf-Emulation.com website was a great source of Elf/OS documentation maintained by Mike Riley.  There is a zip file archive of this website available here in the docs subfolder.  One can unzip this archive locally and access the documentation, binaries and other information using a web browser to view the files.  The main homepage is the file index.html and all other files and sections are available through that homepage.
+
+The stdlib5.txt file provides documentation for the routines in the Elf/OS version 5 standard library and the 
+errorcodes.txt file documents the various error codes used by Elf/OS version 5.
 
 Repository Contents
 -------------------
+ 
 * **/src/**  -- Common source files for assembling Elf/OS utilities.
   * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm xxx.asm* to assemble the xxx.asm file.
+  * build.bat - Windows batch file to assemble the tree and find source files with Asm/02 to create object files and then use Link/02 to link the object files into a binary file.
+* **/src/include/**  -- Include files for Elf/OS file utilities.
   * ops.inc - Opcode definitions for Asm/02.
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
+* **/src/include/**  -- Library files for Elf/OS file utilities.
+  * stdlib5.lib - Elf/OS version 5 standard library file
 * **/src/file/**  -- Source files for Elf/OS file utilities.
   * cmd.asm - Run commands from a file.
   * flags.asm - Show Elf/OS flags associated with a file.
+  * find.asm - Find files in a directory and its sub-directories that match a name.
+  * find_buf.asm - Buffer definitions file used to create the find utility.
   * header.asm - Show the executable header information for a file.
-  * scpy.asm - Safely copy a file.
   * swap.asm - Display a prompt to change disk and wait for input to boot new disk.
-  * xrb.asm - XMODEM Receive using the hardware UART and Elf/OS Kernel API.  
+  * tree.asm - List the contents of a directory and its sub-directories in a branching format.
+  * tree_buf.asm - Buffer definitions file used to create the find utility.
   * xsb.asm - XMODEM Send using the hardware UART and Elf/OS Kernel API.
   * xtrim.asm - Trim an executable file to its runtime size.
   * xtrunc.asm - Truncate a file to remove any XModem padding bytes.
 * **/src/io/**  -- Source files for Elf/OS I/O utilities.  
   * about.asm - Show information about the current drive
-  * clr.asm - Clear the screen
-  * drive.asm - Print the current drive number
   * input.asm - Input and display data read from Port 4
   * nop.asm - No Operation - simple program that does nothing
   * output.asm - Output hh - send the hex value 'hh' out to Port 4
   * pause.asm - Display a prompt and wait for input
   * pwd.asm - Print Working Directory - prints the current directory
   * say.asm - Say 'text' - write the text string back to the output
-  * up.asm - Move Up to the parent directory
 * **/src/pixie/**  -- Source files for 1861 Pixie Video utilities and demo programs
   * spaceship - Joseph A Weisbecker's Pixie Graphic Demo program (Press Input /EF4 to exit)
   * dma_test -Tom Pittman's Video DMA program (Press Input /EF4 to exit)
@@ -232,21 +264,31 @@ Repository Contents
   * req.asm - Reset Q. (The Q bit is available when using the STG Expansion card UART)
   * seq.asm - Set Q. (The Q bit is available when using the STG Expansion card UART)
   * stack.asm - Print the value of the Elf/OS stack pointer  
+* **/src/obs/**  -- Source files for obsolete Elf/OS utilities.
+  * clr.asm - Clear the screen
+  * drive.asm - Print the current drive number
+  * scpy.asm - Safely copy a file.
+  * up.asm - Move Up to the parent directory
+  * xrb.asm - XMODEM Receive using the hardware UART and Elf/OS Kernel API.    
 * **/bin/file/**  -- Binary files for Elf/OS file utilities.
 * **/bin/io/**  -- Binary files for Elf/OS I/O utilities.  
 * **/bin/stg/**  -- Binary files for STG EPROM utilities.
 * **/bin/sys/**  -- Binary files for Elf/OS System utilities. 
 * **/bin/pixie/**  -- Binary files for 1861 Pixie Video utilities and demo programs  
-* **/lbr/**  -- Library files for Elf/OS utilities. (Unpack with Elf/OS lbr command)
-  * file_utils.lbr - Library file for Elf/OS file utilities.
-  * io_utils.lbr - Library file for Elf/OS I/O utilities.
-  * pixie_utils.lbr - Library file for ELf/OS 1861 Pixie Video utilities.  
-  * stg_utils.lbr - Library file for STG EPROM utilities.
-  * sys_utils.lbr - Library file for Elf/OS system utilities.
+* **/bin/obs/**  -- Binary files for obsolete Elf/OS utilities. 
+* **/lbr/**  -- File archive Libraries containing the Elf/OS utilities. (Unpack with Elf/OS lbr command)
+  * file_utils.lbr - File archive library for Elf/OS file utilities.
+  * io_utils.lbr - File archive library for Elf/OS I/O utilities.
+  * pixie_utils.lbr - File archive library for ELf/OS 1861 Pixie Video utilities.  
+  * stg_utils.lbr - File archive library for STG EPROM utilities.
+  * sys_utils.lbr - File archive library for Elf/OS system utilities.
+  * obs_utils.lbr - File archive library for obsolete Elf/OS utilities.
 * **/hlp/**  -- Help file for Elf/OS utilities. (Used with Elf/OS help command)
   * utils.lbr - Help file for Elf/OS file utilities. (Do not unpack with lbr, instead copy into /hlp directory.)  
 * **/docs/**  -- Other Elf/OS documentation.
   * elf-emulation.com.zip - Zip archive file for Elf-Emulation.com website.
+  * stdlib5.txt - Elf/OS version 5 standard library documentation.
+  * errorcodes.txt - Elf/OS version 5 error code documentation.
   
 License Information
 -------------------
